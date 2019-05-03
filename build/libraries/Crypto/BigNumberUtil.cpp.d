@@ -1,0 +1,25 @@
+c:\Users\lucas\Documents\Arduino\Station\ESP32_gateway_Async\build\libraries\Crypto\BigNumberUtil.cpp.o: \
+ C:\Users\lucas\Documents\Arduino\libraries\Crypto\src\BigNumberUtil.cpp \
+ C:\Users\lucas\Documents\Arduino\libraries\Crypto\src\BigNumberUtil.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/inttypes.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/newlib.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/_intsup.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/features.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/stdint.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/machine/_default_types.h \
+ C:\Users\lucas\Documents\Arduino\libraries\Crypto\src\utility/EndianUtil.h \
+ C:\Users\lucas\Documents\Arduino\libraries\Crypto\src\utility/LimbUtil.h \
+ C:\Users\lucas\Documents\Arduino\libraries\Crypto\src\utility/ProgMemUtil.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2\cores\esp32/pgmspace.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/string.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/_ansi.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/config.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/machine/ieeefp.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/esp32/xtensa/config/core-isa.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/reent.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/_ansi.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/_types.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/machine/_types.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/lock.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/cdefs.h \
+ C:\Users\lucas\AppData\Local\Arduino15\packages\esp32\hardware\esp32\1.0.2/tools/sdk/include/newlib/sys/string.h
