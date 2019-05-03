@@ -3419,31 +3419,31 @@ void listDir(fs::FS &fs, const char *dirname, uint8_t levels)
   Serial.println(folder_name);
   folder_name = String("");
 }
-void updateFromFS(fs::FS &fs) {
-   File updateBin = fs.open("/update.bin");
-   if (updateBin) {
-      if(updateBin.isDirectory()){
-         Serial.println("Error, update.bin is not a file");
-         updateBin.close();
-         return;
-      }
+// void updateFromFS(fs::FS &fs) {
+//    File updateBin = fs.open("/update.bin");
+//    if (updateBin) {
+//       if(updateBin.isDirectory()){
+//          Serial.println("Error, update.bin is not a file");
+//          updateBin.close();
+//          return;
+//       }
 
-      size_t updateSize = updateBin.size();
+//       size_t updateSize = updateBin.size();
 
-      if (updateSize > 0) {
-         Serial.println("Try to start update");
-         performUpdate(updateBin, updateSize);
-      }
-      else {
-         Serial.println("Error, file is empty");
-      }
+//       if (updateSize > 0) {
+//          Serial.println("Try to start update");
+//          performUpdate(updateBin, updateSize);
+//       }
+//       else {
+//          Serial.println("Error, file is empty");
+//       }
 
-      updateBin.close();
+//       updateBin.close();
     
-      // whe finished remove the binary from sd card to indicate end of the process
-      fs.remove("/update.bin");      
-   }
-   else {
-      Serial.println("Could not load update.bin from sd root");
-   }
-}
+//       // whe finished remove the binary from sd card to indicate end of the process
+//       fs.remove("/update.bin");      
+//    }
+//    else {
+//       Serial.println("Could not load update.bin from sd root");
+//    }
+// }
