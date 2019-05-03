@@ -16,4 +16,10 @@
 node_modules/*
 data/*
 
+
+
+build/core*
+build/libraries*
+build/preproc*
+build/sketch*
 # End of https://www.gitignore.io/api/visualstudiocode
