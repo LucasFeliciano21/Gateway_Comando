@@ -1,3 +1,5 @@
+#define TESTE 123v1
+
 #include <Abellion.h>
 #include <AWS_IOT.h>
 #include "ping.h"
@@ -95,7 +97,7 @@ const uint8_t AnimationChannels = 1;
 #ifdef DEBUG
 NeoPixelBus<NeoGrbwFeature, Neo800KbpsMethod> strip(1, 0);
 #else
-NeoPixelBus<NeoGrbwFeature, NeoWs2813Method> strip(1, 25);
+NeoPixelBus<NeoGrbwFeature, NeoEsp32I2s1800KbpsMethod> strip(1, 25);
 #endif
 
 NeoPixelAnimator animations(AnimationChannels);
@@ -108,7 +110,7 @@ struct MyAnimationState
 
 MyAnimationState animationState[AnimationChannels];
 
-int colorSaturation = 125; // saturation of color constants
+int colorSaturation = 10; // saturation of color constants
 
 WiFiClient espClient,
     Client,
@@ -502,8 +504,18 @@ void taskLED(void *pvParameters)
 {
   // Serial.println("<booting> Task LED ------------------------------");
   int status = 0;
+  float actual_value = 0;
   for (;;)
   {
+    if (GW.atual_update_status.uploading == true && actual_value != GW.atual_update_status.update_status_value)
+    {
+
+      Serial.print(" present programming percentage: ");
+      actual_value = mapDouble(GW.atual_update_status.update_status_value, GW.atual_update_status.total_file_size, 0, 0, 100),
+
+      Serial.println(actual_value);
+      actual_value = GW.atual_update_status.update_status_value;
+    }
 
     if (animations.IsAnimating())
     {
@@ -974,11 +986,20 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     upload_file = true;
   }
 }
+TaskHandle_t TaskHandle_1;
+TaskHandle_t TaskHandle_2;
+TaskHandle_t TaskHandle_3;
+TaskHandle_t TaskHandle_4;
+TaskHandle_t TaskHandle_5;
+TaskHandle_t TaskHandle_6;
+
+Update_status update_status;
 
 void setup()
 {
-  delay(1000);
+  // delay(1000);
   Serial.begin(250000);
+  delay(1000);
 
   Serial.println("serial Init");
   pinMode(25, OUTPUT); //LED
@@ -1003,13 +1024,14 @@ void setup()
   strip.Begin();
   // strip.SetBrightness(125);
   strip.Show();
-  Serial.println("Started");
+  Serial.printf("Started, firmware date: %s\r\n", __DATE__);
 
   // if (psramInit())
   // {
   //   Serial.println("PSRAM was found and loaded");
   // }
-  //GW.init();
+  GW.init();
+  GW.atual_update_status.update_status_value = 0;
 
   // Serial.printf("Internal Total heap %d, internal Free Heap %d\n", ESP.getHeapSize(), ESP.getFreeHeap());
   // //Internal RAM
@@ -1068,10 +1090,10 @@ void setup()
   uint64_t usedBytes = SD.usedBytes() / (1024 * 1024);
   Serial.printf("SD Card Size: %llu MB, SD card used data: %llu MB\n", cardSize, usedBytes);
 
-  if (!SPIFFS.begin(true))
-  {
-    Serial.println("Failed to mount file system");
-  }
+  // if (!SPIFFS.begin(true))
+  // {
+  //   Serial.println("Failed to mount file system");
+  // }
   // saveConfig();
   loadConfig();
 
@@ -1080,6 +1102,13 @@ void setup()
   if (!SD.exists("/configuration_files"))
   {
     createDir(SD, "/configuration_files");
+
+    Serial.println("folder didn't exist, creating");
+  }
+  if (!SD.exists("/images"))
+  {
+    createDir(SD, "/images");
+
     Serial.println("folder didn't exist, creating");
   }
 
@@ -1126,7 +1155,7 @@ void setup()
       8192,      /* Stack size in words. */
       NULL,      /* Parameter passed as input of the task */
       1,         /* Priority of the task. */
-      NULL,
+      &TaskHandle_1,
       1); /* Task handle. */
 
   xTaskCreatePinnedToCore(
@@ -1135,7 +1164,7 @@ void setup()
       2048,      /* Stack size in words. */
       NULL,      /* Parameter passed as input of the task */
       1,         /* Priority of the task. */
-      NULL,
+      &TaskHandle_6,
       1); /* Task handle. */
 
   xTaskCreatePinnedToCore(
@@ -1144,7 +1173,7 @@ void setup()
       8192,      /* Stack size in words. */
       NULL,      /* Parameter passed as input of the task */
       1,         /* Priority of the task. */
-      NULL,
+      &TaskHandle_3,
       0); /* Task handle. */
 
   xTaskCreatePinnedToCore(
@@ -1153,7 +1182,7 @@ void setup()
       8192,           /* Stack size in words. */
       NULL,           /* Parameter passed as input of the task */
       1,              /* Priority of the task. */
-      NULL,
+      &TaskHandle_4,
       0); /* Task handle. */
 
   // ESP_LOGI("<booting> Attempting WiFi connection");
@@ -1180,7 +1209,7 @@ void setup()
   mqttClient.onMessage(onMqttMessage);
 
   wifiReconnectTimer = xTimerCreate("wifiTimer",
-                                    pdMS_TO_TICKS(2000),
+                                    pdMS_TO_TICKS(10000),
                                     pdFALSE, (void *)0,
                                     reinterpret_cast<TimerCallbackFunction_t>(savewificonfig()));
 
@@ -1194,17 +1223,17 @@ void setup()
       delay(10);
     }
   }
-  else
-    // Serial.println("UP MDNS responder!");
 
-    xTaskCreatePinnedToCore(
-        taskRunning,   /* Task function. */
-        "taskRunning", /* String with name of task. */
-        16384,         /* Stack size in words. */
-        NULL,          /* Parameter passed as input of the task */
-        1,             /* Priority of the task. */
-        NULL,
-        1); /* Task handle. */
+  // Serial.println("UP MDNS responder!");
+
+  xTaskCreatePinnedToCore(
+      taskRunning,   /* Task function. */
+      "taskRunning", /* String with name of task. */
+      16384,         /* Stack size in words. */
+      NULL,          /* Parameter passed as input of the task */
+      1,             /* Priority of the task. */
+      &TaskHandle_5,
+      1); /* Task handle. */
 
   xTaskCreatePinnedToCore(
       taskLORAupdate,   /* Task function. */
@@ -1212,17 +1241,17 @@ void setup()
       8192,             /* Stack size in words. */
       NULL,             /* Parameter passed as input of the task */
       1,                /* Priority of the task. */
-      NULL,
+      &TaskHandle_6,
       1); /* Task handle. */
 
   xTaskCreatePinnedToCore(
       taskPing,   /* Task function. */
       "taskPing", /* String with name of task. */
-      8192,       /* Stack size in words. */
+      20480,      /* Stack size in words. */
       NULL,       /* Parameter passed as input of the task */
       1,          /* Priority of the task. */
       NULL,
-      1); /* Task handle. */
+      0); /* Task handle. */
 
   Serial.print("Rede: ");
   Serial.println(WiFi.SSID());
@@ -1476,6 +1505,8 @@ bool first_cycle = false;
 
 void loop()
 {
+  while (1)
+    vTaskDelay(100000);
 
   ping_resp returnPing;
   for (;;)
@@ -1602,7 +1633,7 @@ void taskRunning(void *pvParameters)
     for (int i = 0; i < 10000; i++)
     {
       battery_volts += analogRead(33);
-      delayMicroseconds(1000);
+      delayMicroseconds(100);
     }
 
     battery_volts /= 10000;
@@ -1848,8 +1879,20 @@ bool send_file_over_LORA(const char *path)
 }
 void taskPing(void *pvParameters)
 {
-  delay(10000);
-  downloadFile("http://speedtest.ftp.otenet.gr/files/test10Mb.db", "/10MB.zip");
+  // vTaskDelay(5000);
+  // downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ESP32_gateway_Async.ino.bin", "/images/ESP32_gateway_Async.ino.bin");
+  // vTaskDelay(1000);
+
+  // vTaskDelete(TaskHandle_1);
+  // // vTaskDelete(TaskHandle_2);
+  // vTaskDelete(TaskHandle_3);
+  // vTaskDelete(TaskHandle_4);
+  // vTaskDelete(TaskHandle_5);
+  // // vTaskDelete(TaskHandle_6);
+  // vTaskDelay(1000);
+
+  // GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
+
   while (1)
     vTaskDelay(10);
   if (upload_file)
@@ -2654,7 +2697,7 @@ bool savewificonfig()
 
                 vTaskDelay(10);
                 Serial.print(".");
-                if (count > 6000)
+                if (count > 600000)
                 {
                   Serial.printf("Unable to connect, restarting...");
 
@@ -2945,176 +2988,176 @@ String GetExternalIP()
     }
   }
 }
-void execOTA(String host)
-{
-  Serial.println("Connecting to: " + String(host));
-  // Connect to S3
-  if (Client.connect(host.c_str(), port))
-  {
-    // Connection Succeed.
-    // Fecthing the bin
-    Serial.println("Fetching Bin: " + String(bin));
+// void execOTA(String host)
+// {
+//   Serial.println("Connecting to: " + String(host));
+//   // Connect to S3
+//   if (Client.connect(host.c_str(), port))
+//   {
+//     // Connection Succeed.
+//     // Fecthing the bin
+//     Serial.println("Fetching Bin: " + String(bin));
 
-    // Get the contents of the bin file
-    Client.print(String("GET ") + bin + " HTTP/1.1\r\n" +
-                 "Host: " + host + "\r\n" +
-                 "Cache-Control: no-cache\r\n" +
-                 "Connection: close\r\n\r\n");
+//     // Get the contents of the bin file
+//     Client.print(String("GET ") + bin + " HTTP/1.1\r\n" +
+//                  "Host: " + host + "\r\n" +
+//                  "Cache-Control: no-cache\r\n" +
+//                  "Connection: close\r\n\r\n");
 
-    // Check what is being sent
-    //    Serial.print(String("GET ") + bin + " HTTP/1.1\r\n" +
-    //                 "Host: " + host + "\r\n" +
-    //                 "Cache-Control: no-cache\r\n" +
-    //                 "Connection: close\r\n\r\n");
+//     // Check what is being sent
+//     //    Serial.print(String("GET ") + bin + " HTTP/1.1\r\n" +
+//     //                 "Host: " + host + "\r\n" +
+//     //                 "Cache-Control: no-cache\r\n" +
+//     //                 "Connection: close\r\n\r\n");
 
-    unsigned long timeout = millis();
-    while (Client.available() == 0)
-    {
-      if (millis() - timeout > 5000)
-      {
-        Serial.println("Client Timeout !");
-        Client.stop();
-        return;
-      }
-    }
-    // Once the response is available,
-    // check stuff
+//     unsigned long timeout = millis();
+//     while (Client.available() == 0)
+//     {
+//       if (millis() - timeout > 5000)
+//       {
+//         Serial.println("Client Timeout !");
+//         Client.stop();
+//         return;
+//       }
+//     }
+//     // Once the response is available,
+//     // check stuff
 
-    /*
-         Response Structure
-          HTTP/1.1 200 OK
-          x-amz-id-2: NVKxnU1aIQMmpGKhSwpCBh8y2JPbak18QLIfE+OiUDOos+7UftZKjtCFqrwsGOZRN5Zee0jpTd0=
-          x-amz-request-id: 2D56B47560B764EC
-          Date: Wed, 14 Jun 2017 03:33:59 GMT
-          Last-Modified: Fri, 02 Jun 2017 14:50:11 GMT
-          ETag: "d2afebbaaebc38cd669ce36727152af9"
-          Accept-Ranges: bytes
-          Content-Type: application/octet-stream
-          Content-Length: 357280
-          Server: AmazonS3
+//     /*
+//          Response Structure
+//           HTTP/1.1 200 OK
+//           x-amz-id-2: NVKxnU1aIQMmpGKhSwpCBh8y2JPbak18QLIfE+OiUDOos+7UftZKjtCFqrwsGOZRN5Zee0jpTd0=
+//           x-amz-request-id: 2D56B47560B764EC
+//           Date: Wed, 14 Jun 2017 03:33:59 GMT
+//           Last-Modified: Fri, 02 Jun 2017 14:50:11 GMT
+//           ETag: "d2afebbaaebc38cd669ce36727152af9"
+//           Accept-Ranges: bytes
+//           Content-Type: application/octet-stream
+//           Content-Length: 357280
+//           Server: AmazonS3
 
-          {{BIN FILE CONTENTS}}
-      */
-    while (Client.available())
-    {
-      // read line till /n
-      String line = Client.readStringUntil('\n');
-      // remove space, to check if the line is end of headers
-      line.trim();
+//           {{BIN FILE CONTENTS}}
+//       */
+//     while (Client.available())
+//     {
+//       // read line till /n
+//       String line = Client.readStringUntil('\n');
+//       // remove space, to check if the line is end of headers
+//       line.trim();
 
-      // if the the line is empty,
-      // this is end of headers
-      // break the while and feed the
-      // remaining `Client` to the
-      // Update.writeStream();
-      if (!line.length())
-      {
-        //headers ended
-        break; // and get the OTA started
-      }
+//       // if the the line is empty,
+//       // this is end of headers
+//       // break the while and feed the
+//       // remaining `Client` to the
+//       // Update.writeStream();
+//       if (!line.length())
+//       {
+//         //headers ended
+//         break; // and get the OTA started
+//       }
 
-      // Check if the HTTP Response is 200
-      // else break and Exit Update
-      if (line.startsWith("HTTP/1.1"))
-      {
-        if (line.indexOf("200") < 0)
-        {
-          Serial.println("Got a non 200 status code from server. Exiting OTA Update.");
-          break;
-        }
-      }
+//       // Check if the HTTP Response is 200
+//       // else break and Exit Update
+//       if (line.startsWith("HTTP/1.1"))
+//       {
+//         if (line.indexOf("200") < 0)
+//         {
+//           Serial.println("Got a non 200 status code from server. Exiting OTA Update.");
+//           break;
+//         }
+//       }
 
-      // extract headers here
-      // Start with content length
-      if (line.startsWith("Content-Length: "))
-      {
-        contentLength = atoi((getHeaderValue(line, "Content-Length: ")).c_str());
-        Serial.println("Got " + String(contentLength) + " bytes from server");
-      }
+//       // extract headers here
+//       // Start with content length
+//       if (line.startsWith("Content-Length: "))
+//       {
+//         contentLength = atoi((getHeaderValue(line, "Content-Length: ")).c_str());
+//         Serial.println("Got " + String(contentLength) + " bytes from server");
+//       }
 
-      // Next, the content type
-      if (line.startsWith("Content-Type: "))
-      {
-        String contentType = getHeaderValue(line, "Content-Type: ");
-        Serial.println("Got " + contentType + " payload.");
-        if (contentType == "application/octet-stream")
-        {
-          isValidContentType = true;
-        }
-      }
-    }
-  }
-  else
-  {
-    // Connect to S3 failed
-    // May be try?
-    // Probably a choppy network?
-    Serial.println("Connection to " + String(host) + " failed. Please check your setup");
-    // retry??
-    // execOTA();
-  }
+//       // Next, the content type
+//       if (line.startsWith("Content-Type: "))
+//       {
+//         String contentType = getHeaderValue(line, "Content-Type: ");
+//         Serial.println("Got " + contentType + " payload.");
+//         if (contentType == "application/octet-stream")
+//         {
+//           isValidContentType = true;
+//         }
+//       }
+//     }
+//   }
+//   else
+//   {
+//     // Connect to S3 failed
+//     // May be try?
+//     // Probably a choppy network?
+//     Serial.println("Connection to " + String(host) + " failed. Please check your setup");
+//     // retry??
+//     // execOTA();
+//   }
 
-  // Check what is the contentLength and if content type is `application/octet-stream`
-  Serial.println("contentLength : " + String(contentLength) + ", isValidContentType : " + String(isValidContentType));
+//   // Check what is the contentLength and if content type is `application/octet-stream`
+//   Serial.println("contentLength : " + String(contentLength) + ", isValidContentType : " + String(isValidContentType));
 
-  // check contentLength and content type
-  if (contentLength && isValidContentType)
-  {
-    // Check if there is enough to OTA Update
-    bool canBegin = Update.begin(contentLength);
+//   // check contentLength and content type
+//   if (contentLength && isValidContentType)
+//   {
+//     // Check if there is enough to OTA Update
+//     bool canBegin = Update.begin(contentLength);
 
-    // If yes, begin
-    if (canBegin)
-    {
-      Serial.println("Begin OTA. This may take 2 - 5 mins to complete. Things might be quite for a while.. Patience!");
-      // No activity would appear on the Serial monitor
-      // So be patient. This may take 2 - 5mins to complete
-      size_t written = Update.writeStream(Client);
+//     // If yes, begin
+//     if (canBegin)
+//     {
+//       Serial.println("Begin OTA. This may take 2 - 5 mins to complete. Things might be quite for a while.. Patience!");
+//       // No activity would appear on the Serial monitor
+//       // So be patient. This may take 2 - 5mins to complete
+//       size_t written = Update.writeStream(Client);
 
-      if (written == contentLength)
-      {
-        Serial.println("Written : " + String(written) + " successfully");
-      }
-      else
-      {
-        Serial.println("Written only : " + String(written) + "/" + String(contentLength) + ". Retry?");
-        // retry??
-        // execOTA();
-      }
+//       if (written == contentLength)
+//       {
+//         Serial.println("Written : " + String(written) + " successfully");
+//       }
+//       else
+//       {
+//         Serial.println("Written only : " + String(written) + "/" + String(contentLength) + ". Retry?");
+//         // retry??
+//         // execOTA();
+//       }
 
-      if (Update.end())
-      {
-        Serial.println("OTA done!");
-        if (Update.isFinished())
-        {
-          Serial.println("Update successfully completed. Rebooting.");
-          ESP.restart();
-        }
-        else
-        {
-          Serial.println("Update not finished? Something went wrong!");
-        }
-      }
-      else
-      {
-        Serial.println("Error Occurred. Error #: " + String(Update.getError()));
-      }
-    }
-    else
-    {
-      // not enough space to begin OTA
-      // Understand the partitions and
-      // space availability
-      Serial.println("Not enough space to begin OTA");
-      Client.flush();
-    }
-  }
-  else
-  {
-    Serial.println("There was no content in the response");
-    Client.flush();
-  }
-}
+//       if (Update.end())
+//       {
+//         Serial.println("OTA done!");
+//         if (Update.isFinished())
+//         {
+//           Serial.println("Update successfully completed. Rebooting.");
+//           ESP.restart();
+//         }
+//         else
+//         {
+//           Serial.println("Update not finished? Something went wrong!");
+//         }
+//       }
+//       else
+//       {
+//         Serial.println("Error Occurred. Error #: " + String(Update.getError()));
+//       }
+//     }
+//     else
+//     {
+//       // not enough space to begin OTA
+//       // Understand the partitions and
+//       // space availability
+//       Serial.println("Not enough space to begin OTA");
+//       Client.flush();
+//     }
+//   }
+//   else
+//   {
+//     Serial.println("There was no content in the response");
+//     Client.flush();
+//   }
+// }
 String getHeaderValue(String header, String headerName)
 {
   return header.substring(strlen(headerName.c_str()));
@@ -3326,13 +3369,14 @@ void downloadFile(char *host, char *file_name)
             // read up to 128 byte
             int c = stream->readBytes(buff, ((size > sizeof(buff)) ? sizeof(buff) : size));
             f.write(buff, c);
-            vTaskDelay(1);
+
             if (len > 0)
             {
               len -= c;
               actual_received_size += c;
             }
           }
+          vTaskDelay(1);
         }
       }
     }
@@ -3347,6 +3391,10 @@ void downloadFile(char *host, char *file_name)
     int size = f.size();
     f.close();
     Serial.printf("--------------------------------------------Done Downloading, the file size is : %d\n", size);
+  }
+  else
+  {
+    Serial.printf("File doesn't exist");
   }
 }
 
@@ -3439,9 +3487,9 @@ void listDir(fs::FS &fs, const char *dirname, uint8_t levels)
 //       }
 
 //       updateBin.close();
-    
+
 //       // whe finished remove the binary from sd card to indicate end of the process
-//       fs.remove("/update.bin");      
+//       fs.remove("/update.bin");
 //    }
 //    else {
 //       Serial.println("Could not load update.bin from sd root");

@@ -1,0 +1,5 @@
+curl GET -u LDPFeliciano:sambaderaiz https://api.bitbucket.org/2.0/repositories/LDPFeliciano/comando-gw/commits
+
+https://github.com/LucasFeliciano21/Geteway_Comando/blob/master/build/ESP32_gateway_Async.ino.bin?raw=true
+
+https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ESP32_gateway_Async.ino.bin

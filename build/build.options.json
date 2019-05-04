@@ -2,7 +2,7 @@
   "additionalFiles": "",
   "builtInLibrariesFolders": "C:\\DEV\\arduino-PR-beta1.9-BUILD-104\\libraries",
   "customBuildProperties": "build.path=c:\\Users\\lucas\\Documents\\Arduino\\Station\\ESP32_gateway_Async\\build,build.warn_data_percentage=75,runtime.tools.esptool_py.path=C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esptool_py\\2.6.1,runtime.tools.esptool_py-2.6.1.path=C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esptool_py\\2.6.1,runtime.tools.xtensa-esp32-elf-gcc.path=C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-80-g6c4433a-5.2.0,runtime.tools.xtensa-esp32-elf-gcc-1.22.0-80-g6c4433a-5.2.0.path=C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\1.22.0-80-g6c4433a-5.2.0,runtime.tools.mkspiffs.path=C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\mkspiffs\\0.2.3,runtime.tools.mkspiffs-0.2.3.path=C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\mkspiffs\\0.2.3",
-  "fqbn": "esp32:esp32:esp32wrover:PartitionScheme=huge_app,FlashMode=qio,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
+  "fqbn": "esp32:esp32:esp32wrover:PartitionScheme=min_spiffs,FlashMode=qio,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
   "hardwareFolders": "C:\\DEV\\arduino-PR-beta1.9-BUILD-104\\hardware,C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages,C:\\Users\\lucas\\Documents\\Arduino\\hardware",
   "otherLibrariesFolders": "C:\\Users\\lucas\\Documents\\Arduino\\libraries",
   "runtime.ide.version": "10900",
