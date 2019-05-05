@@ -110,7 +110,7 @@ struct MyAnimationState
 
 MyAnimationState animationState[AnimationChannels];
 
-int colorSaturation = 10; // saturation of color constants
+int colorSaturation = 255; // saturation of color constants
 
 WiFiClient espClient,
     Client,
@@ -201,6 +201,7 @@ float actual_received_size = 0;
 uint32_t previous_time = 0;
 float previous_size = 0;
 bool downloading_file = false;
+float actual_value = 0;
 
 DynamicJsonBuffer filelistbuffer;
 JsonArray &jarray = filelistbuffer.createArray();
@@ -504,18 +505,9 @@ void taskLED(void *pvParameters)
 {
   // Serial.println("<booting> Task LED ------------------------------");
   int status = 0;
-  float actual_value = 0;
+  
   for (;;)
   {
-    if (GW.atual_update_status.uploading == true && actual_value != GW.atual_update_status.update_status_value)
-    {
-
-      Serial.print(" present programming percentage: ");
-      actual_value = mapDouble(GW.atual_update_status.update_status_value, GW.atual_update_status.total_file_size, 0, 0, 100),
-
-      Serial.println(actual_value);
-      actual_value = GW.atual_update_status.update_status_value;
-    }
 
     if (animations.IsAnimating())
     {
@@ -1050,7 +1042,7 @@ void setup()
 
   Serial.println(s_devname);
 
-  auto speed = 48000000; //3.4 mins on a 22.24 MB file @ 35MHz
+  auto speed = 58000000; //3.4 mins on a 22.24 MB file @ 35MHz
                          //3.2 mins on a 22.24 MB file @ 48MHz
   if (!SD.begin(15, spi, speed))
   {
@@ -1245,11 +1237,11 @@ void setup()
       1); /* Task handle. */
 
   xTaskCreatePinnedToCore(
-      taskPing,   /* Task function. */
-      "taskPing", /* String with name of task. */
-      20480,      /* Stack size in words. */
-      NULL,       /* Parameter passed as input of the task */
-      1,          /* Priority of the task. */
+      taskUpdate,   /* Task function. */
+      "taskUpdate", /* String with name of task. */
+      20480,        /* Stack size in words. */
+      NULL,         /* Parameter passed as input of the task */
+      1,            /* Priority of the task. */
       NULL,
       0); /* Task handle. */
 
@@ -1505,8 +1497,6 @@ bool first_cycle = false;
 
 void loop()
 {
-  while (1)
-    vTaskDelay(100000);
 
   ping_resp returnPing;
   for (;;)
@@ -1518,7 +1508,7 @@ void loop()
     ping_google = returnPing.total_time;
   }
 
-  vTaskDelay(100000);
+  vTaskDelay(10000);
 }
 void taskLORAupdate(void *pvParameters)
 {
@@ -1707,7 +1697,18 @@ void taskRunning(void *pvParameters)
                   analogRead(32),
                   mapDouble(actual_received_size, 0, received_size, 0, 100),
                   float(delta / trasnsmit_interval));
-    // }
+
+    if (GW.atual_update_status.uploading == true && actual_value != GW.atual_update_status.update_status_value)
+    {
+
+      Serial.print(" present programming percentage: ");
+      actual_value = mapDouble(GW.atual_update_status.update_status_value, GW.atual_update_status.total_file_size, 0, 0, 100),
+
+      Serial.println(actual_value);
+      actual_value = GW.atual_update_status.update_status_value;
+    }
+
+
     previous_size = actual_received_size;
     previous_time = millis();
 
@@ -1877,21 +1878,21 @@ bool send_file_over_LORA(const char *path)
     }
   }
 }
-void taskPing(void *pvParameters)
+void taskUpdate(void *pvParameters)
 {
-  // vTaskDelay(5000);
-  // downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ESP32_gateway_Async.ino.bin", "/images/ESP32_gateway_Async.ino.bin");
-  // vTaskDelay(1000);
+  vTaskDelay(5000);
+  downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ESP32_gateway_Async.ino.bin", "/images/ESP32_gateway_Async.ino.bin");
+  vTaskDelay(1000);
 
-  // vTaskDelete(TaskHandle_1);
-  // // vTaskDelete(TaskHandle_2);
-  // vTaskDelete(TaskHandle_3);
-  // vTaskDelete(TaskHandle_4);
+  vTaskDelete(TaskHandle_1);
+  // vTaskDelete(TaskHandle_2);
+  vTaskDelete(TaskHandle_3);
+  vTaskDelete(TaskHandle_4);
   // vTaskDelete(TaskHandle_5);
-  // // vTaskDelete(TaskHandle_6);
-  // vTaskDelay(1000);
+  // vTaskDelete(TaskHandle_6);
+  vTaskDelay(1000);
 
-  // GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
+  GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
 
   while (1)
     vTaskDelay(10);
