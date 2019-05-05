@@ -505,7 +505,7 @@ void taskLED(void *pvParameters)
 {
   // Serial.println("<booting> Task LED ------------------------------");
   int status = 0;
-  
+
   for (;;)
   {
 
@@ -1692,11 +1692,10 @@ void taskRunning(void *pvParameters)
     int delta = actual_received_size - previous_size;
     float trasnsmit_interval = (millis() - previous_time) / 1000;
 
-    Serial.printf("%f battery volts, data: %d \r\n  --- file received total %f %\r\n --- speed %f BPS\r\n",
-                  Internal_battery_voltage,
-                  analogRead(32),
-                  mapDouble(actual_received_size, 0, received_size, 0, 100),
-                  float(delta / trasnsmit_interval));
+    if (upload_file)
+      Serial.printf("  --- file received total %f %\r\n  --- speed %f BPS\r\n",
+                    mapDouble(actual_received_size, 0, received_size, 0, 100),
+                    float(delta / trasnsmit_interval));
 
     if (GW.atual_update_status.uploading == true && actual_value != GW.atual_update_status.update_status_value)
     {
@@ -1707,7 +1706,6 @@ void taskRunning(void *pvParameters)
       Serial.println(actual_value);
       actual_value = GW.atual_update_status.update_status_value;
     }
-
 
     previous_size = actual_received_size;
     previous_time = millis();
