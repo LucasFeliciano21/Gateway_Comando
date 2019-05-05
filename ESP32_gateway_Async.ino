@@ -1890,7 +1890,7 @@ void taskUpdate(void *pvParameters)
   // vTaskDelete(TaskHandle_6);
   vTaskDelay(1000);
 
-  GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
+  // GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
 
   while (1)
     vTaskDelay(10);
