@@ -111,7 +111,7 @@ struct MyAnimationState
 
 MyAnimationState animationState[AnimationChannels];
 
-int colorSaturation = 20; // saturation of color constants
+int colorSaturation = 255; // saturation of color constants
 
 WiFiClient espClient,
     Client,
@@ -1867,7 +1867,7 @@ void handle_radio(void *pvParameters)
           uint8_t mensagem_out[RH_RF95_MAX_MESSAGE_LEN];
           len = RH_RF95_MAX_MESSAGE_LEN;
 
-          Serial.println("got new data");
+          // Serial.println("got new data");
           if (manager.recvfromAck(mensagem_in, &len, &from, &to))
           {
             Serial.print("Nova mensagem - size:");
@@ -1918,23 +1918,6 @@ void handle_radio(void *pvParameters)
 
                 mqttClient.publish(pub_topics[4], 2, false, msg);
 
-                // if (mqtt_client.publish(pub_topics[4], msg))
-                // {
-
-                //   //Subscribe to incommingConfig TOPIC for this station
-                // }
-                // else
-                // {
-                //   estationconfigjson.printTo(OldFiles[total_old_data].stored_to_send);
-                //   OldFiles[total_old_data].station_address = from;
-                //   OldFiles[total_old_data].valid = true;
-                //   total_old_data++;
-                //   Serial.println("MQTT not connected, storing station register:");
-
-                //   // reconnect();
-                //   // estationconfigjson.prettyPrintTo(Serial);
-                // }
-
                 sprintf(sub_topics[4], "%s/%s/incommingConfig", s_devname, estationdata[from].config.name);
 
                 Serial.printf("Subscribe to: %s\r\n", sub_topics[4]);
@@ -1945,14 +1928,8 @@ void handle_radio(void *pvParameters)
                 estationdata[from].config.read_interval = 60000;
 
                 memcpy(&mensagem_out[1], &estationdata[from], sizeof(Estation));
-                // memcpy(&mensagem_out[sizeof(GW.gateway_std_data) + 1], &estationdata[from], sizeof(Estation));
-
-                // while (radio_busy)
-                // {
-                //   Serial.println("Radio is busy! waiting to send ok to station ");
-                //   delay(500);
-                // }
-                if (manager.sendtoWait(mensagem_out, sizeof(Estation) + 1, from))
+             
+                if (manager.sendto(mensagem_out, sizeof(Estation) + 1, from))
                 {
                   Serial.println("Connection request responded!");
                   // radio_busy = false;
@@ -1991,7 +1968,7 @@ void handle_radio(void *pvParameters)
               }
               else
               {
-                Serial.println("Got Data");
+                Serial.println("Got Readed Data");
                 // manager.sendtoWait((uint8_t *)"\x83", 1, from);
                 DynamicJsonBuffer estationbuffer;
 
