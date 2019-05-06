@@ -3,6 +3,7 @@
 #include <Abellion.h>
 #include <AWS_IOT.h>
 #include "ping.h"
+#include "UDHttp.h"
 
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
@@ -749,7 +750,7 @@ void WiFiEvent(WiFiEvent_t event)
     status_LED = WIFI_CONNECTED;
     Serial.println("IP address: ");
     Serial.println(WiFi.localIP());
-    externalIP = GetExternalIP();
+    // externalIP = GetExternalIP();
     // delay(100);
     connectToMqtt();
 
@@ -790,12 +791,18 @@ void onMqttConnect(bool sessionPresent)
 
   mqttClient.publish(pub_topics[0], 2, true, startingup);
 
-  mqttClient.subscribe(sub_topics[0], 1);
-  mqttClient.subscribe(sub_topics[1], 1);
-  mqttClient.subscribe(sub_topics[2], 1);
-  mqttClient.subscribe(sub_topics[3], 1);
-  mqttClient.subscribe(sub_topics[4], 1);
-  mqttClient.subscribe(sub_topics[5], 1);
+  for (int i = 0; i < 7; i++)
+  {
+    mqttClient.subscribe(sub_topics[i], 1);
+    Serial.printf("-  topic subscribed: %s\r\n", sub_topics[i]);
+  }
+
+  // mqttClient.subscribe(sub_topics[0], 1);
+  // mqttClient.subscribe(sub_topics[1], 1);
+  // mqttClient.subscribe(sub_topics[2], 1);
+  // mqttClient.subscribe(sub_topics[3], 1);
+  // mqttClient.subscribe(sub_topics[4], 1);
+  // mqttClient.subscribe(sub_topics[5], 1);
   status_LED = MQTT_CONNECT;
 }
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
@@ -940,7 +947,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     listDir(SD, "/", 1);
     Serial.println("----------------------------------------------------------------------------------------------------\r\n");
 
-    jarray.prettyPrintTo(Serial);
+    // jarray.prettyPrintTo(Serial);
 
     Serial.println("<action>Sending file list\r\n");
     // root.prettyPrintTo(Serial);
@@ -1042,7 +1049,7 @@ void setup()
 
   Serial.println(s_devname);
 
-  auto speed = 58000000; //3.4 mins on a 22.24 MB file @ 35MHz
+  auto speed = 48000000; //3.4 mins on a 22.24 MB file @ 35MHz
                          //3.2 mins on a 22.24 MB file @ 48MHz
   if (!SD.begin(15, spi, speed))
   {
@@ -1119,6 +1126,7 @@ void setup()
   sprintf(sub_topics[4], "%s/config/lora_config", s_devname);
   sprintf(sub_topics[5], "%s/config/list_files", s_devname);
   sprintf(sub_topics[6], "%s/config/downloadFile", s_devname);
+  sprintf(sub_topics[7], "%s/config/downloadNewFirmware", s_devname);
 
   sprintf(pub_topics[0], "%s/status/startingup", s_devname);
   sprintf(pub_topics[1], "%s/status/reset", s_devname);
@@ -1128,11 +1136,12 @@ void setup()
   sprintf(pub_topics[5], "%s/status/list_files", s_devname);
   sprintf(pub_topics[6], "%s/status/file_LORA_upload", s_devname);
   sprintf(pub_topics[7], "%s/status/downloadFile", s_devname);
+  // sprintf(pub_topics[8], "%s/status/downloadFile", s_devname);
 
-  for (int i = 0; i < 7; i++)
-  {
-    Serial.printf("-  topic subscribed: %s\r\n", sub_topics[i]);
-  }
+  // for (int i = 0; i < 7; i++)
+  // {
+  //   Serial.printf("-  topic subscribed: %s\r\n", sub_topics[i]);
+  // }
   status_LED = WIFI_CONNECTING;
 
   Serial.println("CPU0 reset reason: ");
@@ -1217,7 +1226,7 @@ void setup()
   }
 
   // Serial.println("UP MDNS responder!");
-
+  status_LED = status_LED_now;
   xTaskCreatePinnedToCore(
       taskRunning,   /* Task function. */
       "taskRunning", /* String with name of task. */
@@ -1537,62 +1546,9 @@ void taskRunning(void *pvParameters)
       LoraConnected = false;
       setupLora();
     }
+    vTaskDelay(10000);
 
-    // String hour_s = String(hour(now()));
-    // stored_file_info["Time_of_power_fail"] = String(hour_s + ":" + minute(now()) + ":" + second(now()));
-    // stored_file_info["data"] = 0;
-
-    // config["altitude"] = GW.gateway_std_data.stored_alt;
-    // config["lastconnection"] = now();
-    // String date = String(day(now()));
-    // String hour_s = String(hour(now()));
-    // config["lastconnection_date"] = String(date + "/" + month(now()) + "/" + year(now()));
-    // config["lastconnection_time"] = String(hour_s + ":" + minute(now()) + ":" + second(now()));
-
-    // config["LocalIP"] = String(WiFi.localIP().toString());
-    // config["externalIP"] = GetExternalIP();
-    // config["Battery_Voltage"] = String(Internal_battery_voltage, 3);
-    // config["External_Power_Connected"] = String(External_power_connected);
-
-    // stored_file_info.printTo(msg);
-    // stored_file_info.prettyPrintTo(Serial);
-
-    // String header = "{\"Station\":{\"address\" :2,\"data\":";
-
-    // HTTPClient http;
-
-    // File estationFile = SD.open("/SD-01042019-STFF3605D9.json", FILE_READ);
-
-    // http.begin("http://34.238.249.191:1880/fileuploder"); //Specify destination for HTTP request
-    // http.addHeader("Content-Type", "application/json");   //Specify content-type header
-    // http.addHeader("cache-control", "no-cache");          //Specify content-type header
-    // // http.addHeader("cache-control", "no-cache");          //Specify content-type header
-
-    // // http.addHeader("Content-Length", String(estationFile.size()));
-    // float time_start = millis();
-    // // int httpResponseCode = http.sendRequest("POST", &estationFile, estationFile.size()); //Send the actual POST request
-    // // int httpResponseCode = http.sendRequest("POST", (uint8_t *)header.c_str(), &estationFile, header.length(), estationFile.size()); //Send the actual POST request
-    // int httpResponseCode = http.sendRequest("POST", (uint8_t *)msg, &estationFile, strlen(msg) - 2, estationFile.size()); //Send the actual POST request
-    // float time_end = millis();
-
-    // if (httpResponseCode > 0)
-    // {
-    //   String response = http.getString(); //Get the response to the request
-    //   Serial.println(httpResponseCode);   //Print return code
-    //   Serial.println(response);           //Print request answer
-
-    //   Serial.printf("performance on HTTP request - file size: %.1f - transfer rate: %.1f bps", (float)estationFile.size(), (float)(estationFile.size() / ((time_end - time_start) / 1000)));
-    // }
-    // else
-    // {
-
-    //   Serial.print("Error on sending POST: ");
-    //   Serial.println(httpResponseCode);
-    // }
-
-    // http.end();
-
-    // estationFile.close();
+    // post("/static/favicon.png", "34.238.249.191", 1880, "/fileuploder");
 
     // //chack if the position has changed
     if (position_changed)
@@ -1880,17 +1836,18 @@ void taskUpdate(void *pvParameters)
 {
   vTaskDelay(5000);
   downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ESP32_gateway_Async.ino.bin", "/images/ESP32_gateway_Async.ino.bin");
-  vTaskDelay(1000);
+  // vTaskDelay(1000);
 
   vTaskDelete(TaskHandle_1);
   // vTaskDelete(TaskHandle_2);
   vTaskDelete(TaskHandle_3);
   vTaskDelete(TaskHandle_4);
-  // vTaskDelete(TaskHandle_5);
+  vTaskDelete(TaskHandle_5);
   // vTaskDelete(TaskHandle_6);
   vTaskDelay(1000);
+  digitalWrite(2, LOW);
 
-  // GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
+  GW.updateFromFS(SD, "/images/ESP32_gateway_Async.ino.bin", false, update_status);
 
   while (1)
     vTaskDelay(10);
@@ -3494,3 +3451,172 @@ void listDir(fs::FS &fs, const char *dirname, uint8_t levels)
 //       Serial.println("Could not load update.bin from sd root");
 //    }
 // }
+
+String post(char *file_name, char *post_host, int post_port, char *url_char)
+{
+
+  File myFile = SD.open(file_name, FILE_READ);
+
+  String url = String(url_char);
+
+  String fileName = file_name;
+  String fileSize = String(fileName.length());
+
+  Serial.println();
+  Serial.println("file exists");
+  Serial.println(fileName);
+
+  if (myFile)
+  {
+
+    // print content length and host
+    Serial.println("contentLength");
+    Serial.println(fileSize);
+    Serial.print("connecting to ");
+    Serial.println(post_host);
+
+    // try connect or return on fail
+    if (!S3Client.connect(post_host, post_port))
+    {
+      Serial.println("http post connection failed");
+      return String("Post Failure");
+    }
+
+    // We now create a URI for the request
+    Serial.println("Connected to server");
+    Serial.print("Requesting URL: ");
+    Serial.println(url);
+
+    // Make a HTTP request and add HTTP headers
+    String boundary = "Comandogatewayuploadjg2qVIUS8teOAbN3";
+    String contentType = "image/png";
+    String portString = String(post_port);
+    String hostString = String(post_host);
+
+    // post header
+    String postHeader = "POST " + url + " HTTP/1.1\r\n";
+    postHeader += "Host: " + hostString + ":" + portString + "\r\n";
+    postHeader += "Content-Type: multipart/form-data; boundary=" + boundary + "\r\n";
+    postHeader += "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n";
+    postHeader += "Accept-Encoding: gzip,deflate\r\n";
+    postHeader += "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7\r\n";
+    postHeader += "User-Agent: Arduino/Solar-Server\r\n";
+    postHeader += "Keep-Alive: 300\r\n";
+    postHeader += "Connection: keep-alive\r\n";
+    postHeader += "Accept-Language: en-us\r\n";
+
+    // key header
+    String keyHeader = "--" + boundary + "\r\n";
+    keyHeader += "Content-Disposition: form-data; name=\"key\"\r\n\r\n";
+    keyHeader += "${filename}\r\n";
+
+    // request header
+    String requestHead = "--" + boundary + "\r\n";
+    requestHead += "Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"\r\n";
+    requestHead += "Content-Type: " + contentType + "\r\n\r\n";
+
+    // request tail
+    String tail = "\r\n--" + boundary + "--\r\n\r\n";
+
+    // content length
+    int contentLength = keyHeader.length() + requestHead.length() + myFile.size() + tail.length();
+    postHeader += "Content-Length: " + String(contentLength, DEC) + "\n\n";
+
+    // send post header
+    char charBuf0[postHeader.length() + 1];
+    postHeader.toCharArray(charBuf0, postHeader.length() + 1);
+    S3Client.write(charBuf0);
+    Serial.print(charBuf0);
+
+    // send key header
+    char charBufKey[keyHeader.length() + 1];
+    keyHeader.toCharArray(charBufKey, keyHeader.length() + 1);
+    S3Client.write(charBufKey);
+    Serial.print(charBufKey);
+
+    // send request buffer
+    char charBuf1[requestHead.length() + 1];
+    requestHead.toCharArray(charBuf1, requestHead.length() + 1);
+    S3Client.write(charBuf1);
+    Serial.print(charBuf1);
+
+    // create buffer
+    const int bufSize = 4096;
+    byte clientBuf[bufSize];
+    int clientCount = 0;
+    int size = 0;
+
+    Serial.print(" File Size: ");
+    Serial.print(myFile.size());
+    Serial.println(" Bytes");
+
+    while (myFile.available())
+    {
+
+      size = myFile.read(clientBuf, bufSize);
+
+      if (size)
+      {
+        clientCount += size;
+        S3Client.write((const uint8_t *)clientBuf, ((size > sizeof(clientBuf)) ? sizeof(clientBuf) : size));
+        Serial.print("Uploading... ");
+        Serial.println(myFile.size() - clientCount);
+      }
+
+      // S3Client.write((const uint8_t *)clientBuf, bufSize);
+      // clientBuf[clientCount] = myFile.read();
+
+      // clientCount += bufSize;
+      // round++;
+
+      // if (clientCount > (bufSize - 1))
+      // {
+      //
+      //   Serial.println(" Bytes");
+
+      //   clientCount = 0;
+      // }
+    }
+
+    // if (clientCount > 0)
+    // {
+    //   S3Client.write((const uint8_t *)clientBuf, clientCount);
+    //   Serial.println("Sent LAST buffer");
+    // }
+
+    // send tail
+    char charBuf3[tail.length() + 1];
+    tail.toCharArray(charBuf3, tail.length() + 1);
+    S3Client.write(charBuf3);
+    Serial.print(charBuf3);
+
+    // Read all the lines of the reply from server and print them to Serial
+    Serial.println("request sent");
+    String responseHeaders = "";
+
+    while (S3Client.connected())
+    {
+      // Serial.println("while client connected");
+      String line = S3Client.readStringUntil('\n');
+      Serial.println(line);
+      responseHeaders += line;
+      if (line == "\r")
+      {
+        Serial.println("headers received");
+        break;
+      }
+    }
+
+    String line = S3Client.readStringUntil('\n');
+
+    Serial.println("reply was:");
+    Serial.println("==========");
+    Serial.println(line);
+    Serial.println("==========");
+    Serial.println("closing connection");
+
+    // close the file:
+    myFile.close();
+    return responseHeaders;
+  }
+}
