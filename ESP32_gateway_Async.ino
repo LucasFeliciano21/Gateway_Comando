@@ -399,28 +399,22 @@ void taskOne(void *pvParameters)
   {
     connected_stations = renewConnection();
 
-    if (!radio_busy)
+    if (connected_stations < 3)
     {
-      if (connected_stations < 3)
-      {
-        checkNewDevices();
-        // Serial.print("time:");
-        // Serial.println(now());
-        if (!has_stations_to_check)
-          vTaskDelay(30000);
-        else
-          vTaskDelay(1000);
-      }
+      checkNewDevices();
+      // Serial.print("time:");
+      // Serial.println(now());
+      if (!has_stations_to_check)
+        vTaskDelay(10000);
       else
-      {
-        checkNewDevices();
-        vTaskDelay(60000);
-      }
+        vTaskDelay(1000);
     }
     else
     {
-      vTaskDelay(1000);
+      checkNewDevices();
+      vTaskDelay(60000);
     }
+    vTaskDelay(10);
   }
 }
 void taskGPS(void *pvParameters)
@@ -1836,7 +1830,7 @@ bool send_file_over_LORA(const char *path)
 }
 void taskUpdate(void *pvParameters)
 {
-  vTaskDelay(5000);
+  vTaskDelay(600000);
   downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ESP32_gateway_Async.ino.bin", "/images/ESP32_gateway_Async.ino.bin");
   // vTaskDelay(1000);
 
@@ -1861,7 +1855,7 @@ void handle_radio(void *pvParameters)
 {
   for (;;)
   {
-    // if (!radio_busy)
+    if (!radio_busy)
     {
       // if (manager.available() && !radio_busy)
       {
@@ -2271,15 +2265,15 @@ void send_or_store_mqtt_message(char *payload, char *topic, char *station)
     mqttClient.publish(topic, 2, false, payload);
   }
 }
-void checkNewDevices()
+bool checkNewDevices()
 {
 
   if (LoraConnected)
   {
-
+    Serial.println("checkNewDevices");
     if (has_stations_to_check)
     {
-      for (int i = 0; i < max_stations; i++)
+      for (uint8_t i = 0; i < max_stations; i++)
       {
         if (!radio_busy)
         {
@@ -2287,17 +2281,21 @@ void checkNewDevices()
           {
             timed_send = millis();
             radio_busy = true;
+
+            Serial.print("Checking name station: ");
+            Serial.println(i);
             if (manager.sendtoWait((uint8_t *)"\x11", 1, i))
             {
               Serial.println("------------------------name test send ---------------------");
               stations_to_check[i].valid = false;
               radio_busy = false;
-              vTaskDelay(10000);
             }
           }
         }
       }
       has_stations_to_check = false;
+      Serial.println("------------------------ Return from name test send ---------------------");
+      return true;
     }
     else
     {
@@ -2315,40 +2313,18 @@ void checkNewDevices()
       }
 
       radio_busy = false;
+      lora_config_modem(5);
     }
-    lora_config_modem(5);
   }
+  Serial.println("------------------------ Return from checkNewDevices ---------------------");
+  return true;
 }
-void checkDeviceConfig(uint8_t address)
+bool checkDeviceConfig(uint8_t address)
 {
 
   stations_to_check[address].valid = true;
   has_stations_to_check = true;
-
-  // if (LoraConnected)
-  // {
-  //   timed_send = millis();
-
-  //   if (!radio_busy)
-  //   {
-  //     radio_busy = true;
-  //     if (manager.sendtoWait((uint8_t *)"\x11", 1, address))
-  //     {
-  //       Serial.println("------------------------name test send ---------------------");
-  //     }
-  //     else
-  //     {
-  //       Serial.println("Solicitation not delivered...");
-  //       setupLora();
-  //     }
-
-  //     radio_busy = false;
-  //   }
-  //   else
-  //   {
-  //     Serial.println("Radio is busy!");
-  //   }
-  // }
+  return true;
 }
 int renewConnection()
 {
