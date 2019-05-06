@@ -111,7 +111,7 @@ struct MyAnimationState
 
 MyAnimationState animationState[AnimationChannels];
 
-int colorSaturation = 255; // saturation of color constants
+int colorSaturation = 20; // saturation of color constants
 
 WiFiClient espClient,
     Client,
@@ -1192,6 +1192,9 @@ void setup()
   //strip.SetPixelColor(0, yellow);
   //strip.Show();
 
+  // while (1)
+  //   ;
+
   setupLora();
 
   WiFi.onEvent(WiFiEvent);
@@ -1210,10 +1213,10 @@ void setup()
   mqttClient.onMessage(onMqttMessage);
 
   wifiReconnectTimer = xTimerCreate("wifiTimer",
-                                    pdMS_TO_TICKS(10000),
+                                    pdMS_TO_TICKS(2000),
                                     pdFALSE, (void *)0,
                                     reinterpret_cast<TimerCallbackFunction_t>(savewificonfig()));
-
+  esp_wifi_set_max_tx_power(8);
   printLocalTime();
 
   if (!MDNS.begin("gatewayconfig"))
@@ -1263,10 +1266,9 @@ void setup()
   Serial.print("IP: ");
   Serial.println(WiFi.localIP());
 
-  int8_t j;
-  esp_wifi_set_max_tx_power(8);
+  // int8_t j;
 
-  esp_wifi_get_max_tx_power(&j);
+  // esp_wifi_get_max_tx_power(&j);;
 
   ws.onEvent(onWsEvent);
   server.addHandler(&ws);
@@ -2392,7 +2394,7 @@ void setupLora()
   {
 
     timed_send = millis();
-    rf95.setTxPower(23, false);
+    rf95.setTxPower(6, false);
     // rf95.setModemConfig(RH_RF95::Bw500Cr45Sf128);
 
     rf95.setModemConfig(RH_RF95::Bw500Cr48Sf64);
@@ -2661,7 +2663,7 @@ bool savewificonfig()
                 }
                 count++;
               }
-              if (status_LED == WIFI_CONNECTED)
+              if (WiFi.status() == WL_CONNECTED)
               {
                 Serial.println("Connected to wifi on savewificonfig...");
                 // status_LED = WIFI_CONNECTED;
