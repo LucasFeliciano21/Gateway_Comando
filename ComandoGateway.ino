@@ -1869,7 +1869,7 @@ void taskUpdate(void *pvParameters)
 {
   vTaskDelay(60000);
   download_file = true;
-  GW.downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Geteway_Comando/master/build/ComandoGateway.ino.bin", "/images/ComandoGateway.ino.bin", &received_size, &actual_received_size);
+  GW.downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Gateway_Comando/master/build/ComandoGateway.ino.bin", "/images/ComandoGateway.ino.bin", &received_size, &actual_received_size);
   // // vTaskDelay(1000);
   download_file = false;
   // vTaskDelete(TaskHandle_1);
