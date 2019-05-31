@@ -1,0 +1,355 @@
+[
+  {
+    "name": "/images",
+    "type": "folder",
+    "size": 1225.232,
+    "content": [
+      {
+        "name": "/ESP32_gateway_Async.ino.bin",
+        "type": "file",
+        "size": 1225.232
+      },
+      {
+        "name": "/ComandoGateway.ino.bin",
+        "type": "file",
+        "size": 1247.904
+      }
+    ]
+  },
+  {
+    "name": "/configuration_files",
+    "type": "folder",
+    "size": 0.313,
+    "content": [
+      {
+        "name": "/wificonfig.json",
+        "type": "file",
+        "size": 0.313
+      },
+      {
+        "name": "/config.json",
+        "type": "file",
+        "size": 0.206
+      }
+    ]
+  },
+  {
+    "name": "/readed_data",
+    "type": "folder",
+    "size": 173.807,
+    "content": [
+      {
+        "name": "/SD-080519-STFF3605D9.json",
+        "type": "file",
+        "size": 173.807
+      },
+      {
+        "name": "/SD-220419-STFF3105D7.json",
+        "type": "file",
+        "size": 0.743
+      },
+      {
+        "name": "/census2000names.db",
+        "type": "file",
+        "size": 22136.83
+      },
+      {
+        "name": "/justified-nav.jpg",
+        "type": "file",
+        "size": 79.037
+      },
+      {
+        "name": "/mdr512.db",
+        "type": "file",
+        "size": 22777.34
+      },
+      {
+        "name": "/SD-060519-STFF3605D9.json",
+        "type": "file",
+        "size": 66.281
+      },
+      {
+        "name": "/SD-070519-STFF3605D9.json",
+        "type": "file",
+        "size": 199.979
+      },
+      {
+        "name": "/SD-080519-STFF3105D7.json",
+        "type": "file",
+        "size": 95.721
+      },
+      {
+        "name": "/SD-090519-STFF3605D9.json",
+        "type": "file",
+        "size": 385.831
+      },
+      {
+        "name": "/SD-090519-STFF3105D7.json",
+        "type": "file",
+        "size": 217.533
+      },
+      {
+        "name": "/SD-110519-STFF3105D7.json",
+        "type": "file",
+        "size": 323.175
+      },
+      {
+        "name": "/SD-100519-STFF3605D9.json",
+        "type": "file",
+        "size": 417.013
+      },
+      {
+        "name": "/SD-100519-STFF3105D7.json",
+        "type": "file",
+        "size": 196.825
+      },
+      {
+        "name": "/SD-080519-STFF3605D9=",
+        "type": "file",
+        "size": 1.196
+      },
+      {
+        "name": "/SD-110519-STFF3605D9.json",
+        "type": "file",
+        "size": 413.149
+      },
+      {
+        "name": "/SD-120519-STFF3605D9.json",
+        "type": "file",
+        "size": 421.668
+      },
+      {
+        "name": "/SD-120519-STFF3105D7.json",
+        "type": "file",
+        "size": 286.869
+      },
+      {
+        "name": "/SD-130519-STFF3605D9.json",
+        "type": "file",
+        "size": 386.655
+      },
+      {
+        "name": "/SD-130519-STFF3105D7.json",
+        "type": "file",
+        "size": 164.221
+      },
+      {
+        "name": "/SD-080519-STFF3605D9363646424.json",
+        "type": "file",
+        "size": 0.301
+      },
+      {
+        "name": "/SD-140519-STFF3605D9.json",
+        "type": "file",
+        "size": 434.595
+      },
+      {
+        "name": "/SD-140519-STFF3105D7.json",
+        "type": "file",
+        "size": 356.16
+      },
+      {
+        "name": "/SD-140519-ST.json",
+        "type": "file",
+        "size": 0.275
+      },
+      {
+        "name": "/SD-150519-STFF3605D9.json",
+        "type": "file",
+        "size": 397.831
+      },
+      {
+        "name": "/SD-150519-STFF3105D7.json",
+        "type": "file",
+        "size": 281.458
+      },
+      {
+        "name": "/SD-160519-STFF3605D9.json",
+        "type": "file",
+        "size": 490.295
+      },
+      {
+        "name": "/SD-160519-STFF3105D7.json",
+        "type": "file",
+        "size": 132.386
+      },
+      {
+        "name": "/SD-170519-STFF3605D9.json",
+        "type": "file",
+        "size": 334.13
+      },
+      {
+        "name": "/SD-170519-STFF3105D7.json",
+        "type": "file",
+        "size": 146.421
+      },
+      {
+        "name": "/SD-170519-STFF310",
+        "type": "file",
+        "size": 0.562
+      },
+      {
+        "name": "/SD-180519-STFF3605D9.json",
+        "type": "file",
+        "size": 425.564
+      },
+      {
+        "name": "/SD-180519-STFF3105D7.json",
+        "type": "file",
+        "size": 409.812
+      },
+      {
+        "name": "/SD-190519-STFF3605D9.json",
+        "type": "file",
+        "size": 425.088
+      },
+      {
+        "name": "/SD-190519-STFF3105D7.json",
+        "type": "file",
+        "size": 252.99
+      },
+      {
+        "name": "/SD-200519-STFF3605D9.json",
+        "type": "file",
+        "size": 424.25
+      },
+      {
+        "name": "/SD-210519-STFF3605D9.json",
+        "type": "file",
+        "size": 157.579
+      },
+      {
+        "name": "/SD-260519-STFF3105D7.json",
+        "type": "file",
+        "size": 71.905
+      },
+      {
+        "name": "/SD-260519-STFF3605D9.json",
+        "type": "file",
+        "size": 63.122
+      },
+      {
+        "name": "/SD-270519-STFF3105D7.json",
+        "type": "file",
+        "size": 287.429
+      },
+      {
+        "name": "/SD-270519-STFF3605D9.json",
+        "type": "file",
+        "size": 353.345
+      },
+      {
+        "name": "/SD-280519-STFF3605D9.json",
+        "type": "file",
+        "size": 397.668
+      },
+      {
+        "name": "/SD-280519-STFF3105D7.json",
+        "type": "file",
+        "size": 192.691
+      },
+      {
+        "name": "/SD-290519-STFF3105D7.json",
+        "type": "file",
+        "size": 385.604
+      },
+      {
+        "name": "/SD-290519-STFF3605D9.json",
+        "type": "file",
+        "size": 307.43
+      },
+      {
+        "name": "/SD-290519-ST.json",
+        "type": "file",
+        "size": 0.87
+      },
+      {
+        "name": "/SD-300519-STFF3105D7.json",
+        "type": "file",
+        "size": 207.438
+      },
+      {
+        "name": "/SD-300519-STFF3605D9.json",
+        "type": "file",
+        "size": 75.133
+      },
+      {
+        "name": "/SD-300519-STFF3605DE.json",
+        "type": "file",
+        "size": 0.253
+      }
+    ]
+  },
+  {
+    "name": "/System Volume Information",
+    "type": "folder",
+    "size": 0,
+    "content": []
+  },
+  {
+    "name": "/static",
+    "type": "folder",
+    "size": 17.183,
+    "content": [
+      {
+        "name": "/edit.htm",
+        "type": "file",
+        "size": 17.183
+      },
+      {
+        "name": "/index.htm",
+        "type": "file",
+        "size": 23.414
+      },
+      {
+        "name": "/Data_collector.js",
+        "type": "file",
+        "size": 18.77
+      }
+    ]
+  },
+  {
+    "name": "/downloaded",
+    "type": "folder",
+    "size": 3.02,
+    "content": [
+      {
+        "name": "/downloaded.html",
+        "type": "file",
+        "size": 3.02
+      },
+      {
+        "name": "/justified-nav.jpg",
+        "type": "file",
+        "size": 79.037
+      }
+    ]
+  },
+  {
+    "name": "/",
+    "type": "folder",
+    "size": 0,
+    "content": [
+      {
+        "name": "10MB.ZIP",
+        "type": "file",
+        "size": 0
+      },
+      {
+        "name": "/station.json",
+        "type": "file",
+        "size": 1.054
+      },
+      {
+        "name": "/WeatherStationMedium_filetransfer.bin",
+        "type": "file",
+        "size": 137.596
+      },
+      {
+        "name": "/WeatherStationMedium.ino.bin",
+        "type": "file",
+        "size": 172.164
+      }
+    ]
+  }
+]

@@ -18,9 +18,6 @@
 #include <WebSocketsServer.h>
 #include <NTPClient.h>
 
-#include <NeoPixelAnimator.h>
-#include <NeoPixelBus.h>
-
 #include <TimeLib.h>
 
 #include <SPIFFSEditor.h>
@@ -92,24 +89,24 @@ const char *host = "otabuckettester.s3-us-west-2.amazonaws.com";
 
 //HardwareSerial GPSPort(1);
 
-const uint8_t AnimationChannels = 1;
+// const uint8_t AnimationChannels = 1;
 #ifdef DEBUG
 NeoPixelBus<NeoGrbwFeature, Neo800KbpsMethod> strip(1, 0);
 #else
 NeoPixelBus<NeoGrbwFeature, Neo800KbpsMethod> strip(1, 25);
 #endif
 
-NeoPixelAnimator animations(AnimationChannels);
+// NeoPixelAnimator animations(AnimationChannels);
 
-struct MyAnimationState
-{
-  RgbwColor StartingColor;
-  RgbwColor EndingColor;
-};
+// struct MyAnimationState
+// {
+//   RgbwColor StartingColor;
+//   RgbwColor EndingColor;
+// };
 
-MyAnimationState animationState[AnimationChannels];
+// MyAnimationState animationState[AnimationChannels];
 
-int colorSaturation = 255; // saturation of color constants
+// int colorSaturation = 255; // saturation of color constants
 
 WiFiClient espClient,
     Client,
@@ -211,21 +208,21 @@ JsonArray &jarray = filelistbuffer.createArray();
 
 DynamicJsonBuffer folderlistbuffer;
 
-enum WIFI_STATUS
-{
-  WIFI_OFFLINE = 0x00,
-  WIFI_CONNECTING,
-  WIFI_CONNECTED,
-  WIFI_LOWBATTERY,
-  WIFI_WAITING_PASSWD,
-  NETWORK_CONNECTING,
-  MQTT_CONNECTING,
-  MQTT_CONNECT,
-  LOW_POWER_CONNECTED,
-  EXTRA_MODE
-};
+// enum WIFI_STATUS
+// {
+//   WIFI_OFFLINE = 0x00,
+//   WIFI_CONNECTING,
+//   WIFI_CONNECTED,
+//   WIFI_LOWBATTERY,
+//   WIFI_WAITING_PASSWD,
+//   NETWORK_CONNECTING,
+//   MQTT_CONNECTING,
+//   MQTT_CONNECT,
+//   LOW_POWER_CONNECTED,
+//   EXTRA_MODE
+// };
 
-char status_LED = WIFI_OFFLINE, status_LED_now = 0x00;
+int status_LED = WIFI_OFFLINE, status_LED_now = 0x00;
 
 #ifdef DEBUG
 RH_RF95 rf95(5, 17);
@@ -398,7 +395,7 @@ uint8_t old_Status;
 // void IRAM_ATTR taskOne(void *pvParameters)
 void taskOne(void *pvParameters)
 {
-  // Serial.println("<booting> Task one ------------------------------");
+  Serial.println("<booting> Task one ------------------------------");
   for (;;)
   {
     connected_stations = renewConnection();
@@ -406,19 +403,13 @@ void taskOne(void *pvParameters)
     if (connected_stations < 3)
     {
       checkNewDevices();
-      // Serial.print("time:");
-      // Serial.println(now());
-      if (!has_stations_to_check)
-        vTaskDelay(10000);
-      else
-        vTaskDelay(1000);
+      vTaskDelay(5000);
     }
     else
     {
       checkNewDevices();
       vTaskDelay(60000);
     }
-    vTaskDelay(10);
   }
 }
 void taskGPS(void *pvParameters)
@@ -502,233 +493,234 @@ void taskGPS(void *pvParameters)
 }
 void taskLED(void *pvParameters)
 {
-  // Serial.println("<booting> Task LED ------------------------------");
-  int status = 0;
+  GW.LEDloop(status_LED);
+  // // Serial.println("<booting> Task LED ------------------------------");
+  // int status = 0;
 
-  for (;;)
-  {
-    if (!External_power_connected)
-    {
-      colorSaturation = 20;
-    }
-    else
-    {
-      colorSaturation = 255;
-    }
+  // for (;;)
+  // {
+  //   if (!External_power_connected)
+  //   {
+  //     colorSaturation = 20;
+  //   }
+  //   else
+  //   {
+  //     colorSaturation = 255;
+  //   }
 
-    if (animations.IsAnimating())
-    {
+  //   if (animations.IsAnimating())
+  //   {
 
-      animations.UpdateAnimations();
-      // Serial.println("animation...");
-      strip.Show();
-      vTaskDelay(10);
-    }
-    else
-    {
-      switch (status_LED)
-      {
-      case WIFI_OFFLINE:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(colorSaturation, 0, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0);
-          animationState[0].EndingColor = RgbwColor(colorSaturation, 0, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case WIFI_CONNECTING:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(colorSaturation, 10, 0, 0);
-          animationState[0].EndingColor = RgbwColor(10, colorSaturation, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(10, colorSaturation, 0, 0);
-          animationState[0].EndingColor = RgbwColor(colorSaturation, 10, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case MQTT_CONNECT:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(0);
-          animationState[0].EndingColor = RgbwColor(0, colorSaturation, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0, colorSaturation, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case WIFI_WAITING_PASSWD:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(0, colorSaturation, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0, 0, colorSaturation, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0, 0, colorSaturation, 0);
-          animationState[0].EndingColor = RgbwColor(0, colorSaturation, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case MQTT_CONNECTING:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(colorSaturation, colorSaturation, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0);
-          animationState[0].EndingColor = RgbwColor(colorSaturation, colorSaturation, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case LOW_POWER_CONNECTED:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(20, 20, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0);
-          animationState[0].EndingColor = RgbwColor(20, 20, 0, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case NETWORK_CONNECTING:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(0, 100, 100, 0);
-          animationState[0].EndingColor = RgbwColor(0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0);
-          animationState[0].EndingColor = RgbwColor(0, 100, 100, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case WIFI_CONNECTED:
-      {
-        if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(0, 0, 100, 0);
-          animationState[0].EndingColor = RgbwColor(0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 0;
-        }
-        else if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(0);
-          animationState[0].EndingColor = RgbwColor(0, 0, 100, 0);
-          animations.StartAnimation(0, 500, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 1;
-        }
-        break;
-      }
-      case EXTRA_MODE:
-      {
-        if (status == 0)
-        {
-          animationState[0].StartingColor = RgbwColor(100, 0, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0, 100, 0, 0);
-          animations.StartAnimation(0, 300, BlendAnimUpdate);
-          //Serial.println("set out...");
-          status = 1;
-        }
-        else if (status == 1)
-        {
-          animationState[0].StartingColor = RgbwColor(0, 100, 0, 0);
-          animationState[0].EndingColor = RgbwColor(0, 0, 100, 0);
-          animations.StartAnimation(0, 300, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 2;
-        }
-        else if (status == 2)
-        {
-          animationState[0].StartingColor = RgbwColor(0, 0, 100, 0);
-          animationState[0].EndingColor = RgbwColor(100, 0, 0, 0);
-          animations.StartAnimation(0, 300, BlendAnimUpdate);
-          //Serial.println("set in...");
-          status = 0;
-        }
-        break;
-      }
-      }
-    }
-  }
+  //     animations.UpdateAnimations();
+  //     // Serial.println("animation...");
+  //     strip.Show();
+  //     vTaskDelay(10);
+  //   }
+  //   else
+  //   {
+  //     switch (status_LED)
+  //     {
+  //     case WIFI_OFFLINE:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(colorSaturation, 0, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0);
+  //         animationState[0].EndingColor = RgbwColor(colorSaturation, 0, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case WIFI_CONNECTING:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(colorSaturation, 10, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(10, colorSaturation, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(10, colorSaturation, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(colorSaturation, 10, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case MQTT_CONNECT:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0);
+  //         animationState[0].EndingColor = RgbwColor(0, colorSaturation, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, colorSaturation, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case WIFI_WAITING_PASSWD:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, colorSaturation, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0, 0, colorSaturation, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, 0, colorSaturation, 0);
+  //         animationState[0].EndingColor = RgbwColor(0, colorSaturation, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case MQTT_CONNECTING:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(colorSaturation, colorSaturation, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0);
+  //         animationState[0].EndingColor = RgbwColor(colorSaturation, colorSaturation, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case LOW_POWER_CONNECTED:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(20, 20, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0);
+  //         animationState[0].EndingColor = RgbwColor(20, 20, 0, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case NETWORK_CONNECTING:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, 100, 100, 0);
+  //         animationState[0].EndingColor = RgbwColor(0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0);
+  //         animationState[0].EndingColor = RgbwColor(0, 100, 100, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case WIFI_CONNECTED:
+  //     {
+  //       if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, 0, 100, 0);
+  //         animationState[0].EndingColor = RgbwColor(0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 0;
+  //       }
+  //       else if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0);
+  //         animationState[0].EndingColor = RgbwColor(0, 0, 100, 0);
+  //         animations.StartAnimation(0, 500, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 1;
+  //       }
+  //       break;
+  //     }
+  //     case EXTRA_MODE:
+  //     {
+  //       if (status == 0)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(100, 0, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0, 100, 0, 0);
+  //         animations.StartAnimation(0, 300, BlendAnimUpdate);
+  //         //Serial.println("set out...");
+  //         status = 1;
+  //       }
+  //       else if (status == 1)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, 100, 0, 0);
+  //         animationState[0].EndingColor = RgbwColor(0, 0, 100, 0);
+  //         animations.StartAnimation(0, 300, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 2;
+  //       }
+  //       else if (status == 2)
+  //       {
+  //         animationState[0].StartingColor = RgbwColor(0, 0, 100, 0);
+  //         animationState[0].EndingColor = RgbwColor(100, 0, 0, 0);
+  //         animations.StartAnimation(0, 300, BlendAnimUpdate);
+  //         //Serial.println("set in...");
+  //         status = 0;
+  //       }
+  //       break;
+  //     }
+  //     }
+  //   }
+  // }
 }
-void BlendAnimUpdate(const AnimationParam &param)
-{
-  RgbwColor updatedColor = RgbwColor::LinearBlend(
-      animationState[param.index].StartingColor,
-      animationState[param.index].EndingColor,
-      param.progress);
+// void BlendAnimUpdate(const AnimationParam &param)
+// {
+//   RgbwColor updatedColor = RgbwColor::LinearBlend(
+//       animationState[param.index].StartingColor,
+//       animationState[param.index].EndingColor,
+//       param.progress);
 
-  strip.SetPixelColor(0, updatedColor);
-}
+//   strip.SetPixelColor(0, updatedColor);
+// }
 SPIClass spi;
 
 void printLocalTime()
@@ -955,7 +947,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     // root.prettyPrintTo(Serial);
     jarray.printTo(sendFileList);
 
-    mqttClient.publish(pub_topics[5], 0, false, sendFileList);
+    mqttClient.publish(pub_topics[5], 0, false, sendFileList, strlen(sendFileList));
     // delay(100);
     filelistbuffer.clear();
     JsonArray &jarray = filelistbuffer.createArray();
@@ -983,7 +975,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     Serial.println("<action>Starting File Download\r\n");
     snprintf(msg, 75, "{\"Time\":\"%lu\"}", now());
     Serial.println(msg);
-    mqtt_client.publish(pub_topics[1], msg);
+    mqttClient.publish(pub_topics[1], 0, false, msg, strlen(msg));
 
     upload_file = true;
   }
@@ -1013,7 +1005,7 @@ void setup()
   timerAlarmEnable(timer);                 //enable interrupt
   // delay(1000);
   Serial.begin(250000);
-  delay(1000);
+  // delay(1000);
 
   Serial.println("serial Init");
   pinMode(25, OUTPUT); //LED
@@ -1040,6 +1032,15 @@ void setup()
   strip.Show();
   Serial.printf("Started, firmware date: %s\r\n", __DATE__);
 
+  xTaskCreatePinnedToCore(
+      taskLED,   /* Task function. */
+      "taskLED", /* String with name of task. */
+      2048,      /* Stack size in words. */
+      NULL,      /* Parameter passed as input of the task */
+      1,         /* Priority of the task. */
+      &TaskHandle_6,
+      1); /* Task handle. */
+
   // if (psramInit())
   // {
   //   Serial.println("PSRAM was found and loaded");
@@ -1064,7 +1065,7 @@ void setup()
   timerWrite(timer, 0);
 
   Serial.println(s_devname);
-  delay(100);
+  // delay(100);
 
   auto speed = 48000000; //3.4 mins on a 22.24 MB file @ 35MHz
                          //3.2 mins on a 22.24 MB file @ 48MHz
@@ -1160,6 +1161,7 @@ void setup()
   //   Serial.printf("-  topic subscribed: %s\r\n", sub_topics[i]);
   // }
   status_LED = WIFI_CONNECTING;
+  status_LED_now = status_LED;
 
   Serial.println("CPU0 reset reason: ");
   print_reset_reason(rtc_get_reset_reason(0));
@@ -1175,33 +1177,6 @@ void setup()
       1,         /* Priority of the task. */
       &TaskHandle_1,
       1); /* Task handle. */
-
-  xTaskCreatePinnedToCore(
-      taskLED,   /* Task function. */
-      "taskLED", /* String with name of task. */
-      2048,      /* Stack size in words. */
-      NULL,      /* Parameter passed as input of the task */
-      1,         /* Priority of the task. */
-      &TaskHandle_6,
-      1); /* Task handle. */
-
-  xTaskCreatePinnedToCore(
-      taskOne,   /* Task function. */
-      "TaskOne", /* String with name of task. */
-      8192,      /* Stack size in words. */
-      NULL,      /* Parameter passed as input of the task */
-      1,         /* Priority of the task. */
-      &TaskHandle_3,
-      0); /* Task handle. */
-
-  xTaskCreatePinnedToCore(
-      handle_radio,   /* Task function. */
-      "handle_radio", /* String with name of task. */
-      8192,           /* Stack size in words. */
-      NULL,           /* Parameter passed as input of the task */
-      1,              /* Priority of the task. */
-      &TaskHandle_4,
-      0); /* Task handle. */
 
   // ESP_LOGI("<booting> Attempting WiFi connection");
   //or reconnect they work about the same
@@ -1235,11 +1210,10 @@ void setup()
                                     reinterpret_cast<TimerCallbackFunction_t>(savewificonfig()));
   esp_wifi_set_max_tx_power(8);
   printLocalTime();
-  setupLora();
+
   timerWrite(timer, 0);
 
   // status_LED = WIFI_OFFLINE;
-  status_LED_now = status_LED;
 
   if (!MDNS.begin("gatewayconfig"))
   {
@@ -1250,8 +1224,28 @@ void setup()
     }
   }
 
+  setupLora();
+
+  xTaskCreatePinnedToCore(
+      taskOne,   /* Task function. */
+      "TaskOne", /* String with name of task. */
+      8192,      /* Stack size in words. */
+      NULL,      /* Parameter passed as input of the task */
+      1,         /* Priority of the task. */
+      &TaskHandle_3,
+      1); /* Task handle. */
+
+  xTaskCreatePinnedToCore(
+      handle_radio,   /* Task function. */
+      "handle_radio", /* String with name of task. */
+      8192,           /* Stack size in words. */
+      NULL,           /* Parameter passed as input of the task */
+      1,              /* Priority of the task. */
+      &TaskHandle_4,
+      0); /* Task handle. */
+
   // Serial.println("UP MDNS responder!");
-  status_LED = status_LED_now;
+  // status_LED = status_LED_now;
   xTaskCreatePinnedToCore(
       taskRunning,   /* Task function. */
       "taskRunning", /* String with name of task. */
@@ -1551,19 +1545,6 @@ void loop()
 
   vTaskDelay(10000);
 }
-void taskLORAupdate(void *pvParameters)
-{
-  for (;;)
-  {
-
-    if (upload_file)
-    {
-      send_file_over_LORA("/WeatherStationMedium_filetransfer.bin");
-      upload_file = false;
-    }
-    vTaskDelay(10);
-  }
-}
 
 void taskRunning(void *pvParameters)
 {
@@ -1704,7 +1685,21 @@ void taskRunning(void *pvParameters)
     vTaskDelay(100);
   }
 }
-bool send_file_over_LORA(const char *path)
+void taskLORAupdate(void *pvParameters)
+{
+  for (;;)
+  {
+
+    if (upload_file)
+    {
+      Serial.println("------------------------Sending File---------------------");
+      send_file_over_LORA("/WeatherStationMedium_filetransfer.ino.bin", 10);
+      upload_file = false;
+    }
+    vTaskDelay(10);
+  }
+}
+bool send_file_over_LORA(const char *path, uint8_t destination)
 {
   File estationFile = SD.open(path, FILE_READ);
   // vTaskSuspend(taskPing);
@@ -1713,13 +1708,7 @@ bool send_file_over_LORA(const char *path)
 
   if (estationFile)
   {
-    while (radio_busy)
-    {
-      Serial.printf("Waiting radio to send file\r\n");
-      vTaskDelay(250);
-    }
 
-    radio_busy = true;
     uint8_t data[RH_RF95_MAX_MESSAGE_LEN];
     uint32_t file_transfer_init_time = millis();
     uint32_t start_time = 0;
@@ -1746,8 +1735,8 @@ bool send_file_over_LORA(const char *path)
     memcpy(&data[1], &filename, strlen(filename));
 
     memcpy(&data[2 + strlen(filename)], &size, sizeof(size));
-
-    if (!manager.sendtoWait(data, 1 + strlen(filename) + sizeof(size), 10))
+    manager.waitPacketSent();
+    if (!manager.sendtoWait(data, 1 + strlen(filename) + sizeof(size), destination))
     {
       Serial.println("MESSAGE NOT DELIVERED!");
       start_sendind_ok = false;
@@ -1801,9 +1790,9 @@ bool send_file_over_LORA(const char *path)
         if (last_message)
         {
           start_time = millis();
-          if (!manager.sendtoWait(data, present_page_bytes + 3, 10))
+          if (!manager.sendtoWait(data, present_page_bytes + 3, destination))
           {
-            Serial.println("File send ERROR!");
+            Serial.println("File send ERROR - not delivered!");
             break;
           }
           end_time = millis();
@@ -1811,9 +1800,9 @@ bool send_file_over_LORA(const char *path)
         else
         {
           start_time = millis();
-          if (!manager.sendtoWait(data, RH_RF95_MAX_MESSAGE_LEN, 10))
+          if (!manager.sendtoWait(data, RH_RF95_MAX_MESSAGE_LEN, destination))
           {
-            Serial.println("File send ERROR!");
+            Serial.println("File send ERROR - not delivered!");
             break;
           }
           end_time = millis();
@@ -1841,7 +1830,7 @@ bool send_file_over_LORA(const char *path)
       }
 
       Serial.println("File send done");
-      radio_busy = false;
+
       estationFile.close();
 
       DynamicJsonBuffer jsonBuffer;
@@ -1861,7 +1850,6 @@ bool send_file_over_LORA(const char *path)
     else
     {
       Serial.println("File send ERROR!");
-      radio_busy = false;
     }
   }
 }
@@ -1869,6 +1857,7 @@ void taskUpdate(void *pvParameters)
 {
   vTaskDelay(60000);
   download_file = true;
+  //https://raw.githack.com/LucasFeliciano21/Gateway_Comando/master/build/ComandoGateway.ino.partitions.bin
   GW.downloadFile("https://raw.githubusercontent.com/LucasFeliciano21/Gateway_Comando/master/build/ComandoGateway.ino.bin", "/images/ComandoGateway.ino.bin", &received_size, &actual_received_size);
   // // vTaskDelay(1000);
   download_file = false;
@@ -1892,388 +1881,388 @@ void handle_radio(void *pvParameters)
 {
   for (;;)
   {
-    if (!radio_busy)
+    if (!upload_file)
     {
-      // if (manager.available() && !radio_busy)
+      if (manager.available())
       {
-        radio_busy = true;
-        if (manager.available())
+
+        uint8_t mensagem_in[RH_RF95_MAX_MESSAGE_LEN];
+        uint8_t mensagem_out[RH_RF95_MAX_MESSAGE_LEN];
+        len = RH_RF95_MAX_MESSAGE_LEN;
+
+        // Serial.println("got new data");
+        if (manager.recvfromAckTimeout(mensagem_in, &len, 500, &from, &to))
         {
-
-          uint8_t mensagem_in[RH_RF95_MAX_MESSAGE_LEN];
-          uint8_t mensagem_out[RH_RF95_MAX_MESSAGE_LEN];
-          len = RH_RF95_MAX_MESSAGE_LEN;
-
-          // Serial.println("got new data");
-          if (manager.recvfromAckTimeout(mensagem_in, &len, 500, &from, &to))
+          Serial.print("Nova mensagem - size:");
+          Serial.print(len);
+          Serial.print(" - de : ");
+          Serial.println(from);
+          if ((int)from >= 100 && (int)from < 150)
           {
-            Serial.print("Nova mensagem - size:");
-            Serial.print(len);
-            Serial.print(" - de : ");
-            Serial.println(from);
-            if ((int)from >= 100 && (int)from < 150)
+            Serial.println("Message from other gateway, ignoring it...");
+          }
+          else
+          {
+            if (mensagem_in[CONNECTION_INDEX] == 0x04)
             {
-              Serial.println("Message from other gateway, ignoring it...");
-            }
-            else
-            {
-              if (mensagem_in[CONNECTION_INDEX] == 0x04)
+
+              DynamicJsonBuffer estationbuffer;
+              JsonObject &estationconfigjson = estationbuffer.createObject();
+
+              memcpy(&estationdata[from].config, &mensagem_in[1], sizeof(estationdata[from].config));
+
+              estationconfigjson["name"] = estationdata[from].config.name;
+              estationconfigjson["time_of_registry"] = millis();
+              estationconfigjson["battery_level"] = estationdata[from].config.battery_volts;
+              estationconfigjson["Latitude"] = estationdata[from].config.gps_flat;
+              estationconfigjson["Longitude"] = estationdata[from].config.gps_flon;
+              estationconfigjson["GPSfix"] = estationdata[from].config.last_gps_fix;
+              estationconfigjson["Lora_pwr"] = estationdata[from].config.radio_pwr;
+
+              estationconfigjson.prettyPrintTo(Serial);
+
+              Serial.printf("Received registration request from %d with name: %s\r\n -RSSI reported: %d \r\n",
+                            from, estationdata[from].config.name, estationdata[from].config.last_received_RSSI);
+
+              if (estationdata[from].config.Card_present == true)
               {
-
-                DynamicJsonBuffer estationbuffer;
-                JsonObject &estationconfigjson = estationbuffer.createObject();
-
-                memcpy(&estationdata[from].config, &mensagem_in[1], sizeof(estationdata[from].config));
-
-                estationconfigjson["name"] = estationdata[from].config.name;
-                estationconfigjson["time_of_registry"] = millis();
-                estationconfigjson["battery_level"] = estationdata[from].config.battery_volts;
-                estationconfigjson["Latitude"] = estationdata[from].config.gps_flat;
-                estationconfigjson["Longitude"] = estationdata[from].config.gps_flon;
-                estationconfigjson["GPSfix"] = estationdata[from].config.last_gps_fix;
-                estationconfigjson["Lora_pwr"] = estationdata[from].config.radio_pwr;
-
-                estationconfigjson.prettyPrintTo(Serial);
-
-                Serial.printf("Received registration request from %d with name: %s\r\n -RSSI reported: %d \r\n",
-                              from, estationdata[from].config.name, estationdata[from].config.last_received_RSSI);
-
-                if (estationdata[from].config.Card_present == true)
-                {
-                  Serial.printf(" -SD Memory %d GB memory and %d GB free card space\r\n",
-                                estationdata[from].config.CardSize, estationdata[from].config.CardFreeSpace);
-                  estationconfigjson["SDcardSize"] = estationdata[from].config.CardSize;
-                }
-
-                Serial.printf(" -The station is LAT: %f LON: %f, at a hight of %f m, the last fix is %d hours ago\r\n",
-                              estationdata[from].config.gps_flat, estationdata[from].config.gps_flon, estationdata[from].config.gps_altitude, ((now() - estationdata[from].config.last_gps_fix) / 3600));
-                Serial.printf(" -The present battery voltage is %f V, the number of remote sensors is: %d \r\n",
-                              estationdata[from].config.battery_volts, estationdata[from].config.Remote_sensors);
-
-                estationconfigjson.printTo(msg);
-                sprintf(pub_topics[4], "%s/%s/config", s_devname, estationdata[from].config.name);
-
-                mqttClient.publish(pub_topics[4], 2, false, msg);
-
-                sprintf(sub_topics[4], "%s/%s/incommingConfig", s_devname, estationdata[from].config.name);
-
-                Serial.printf("Subscribe to: %s\r\n", sub_topics[4]);
-
-                mensagem_out[0] = '\x05';
-                Serial.println("Got connection request");
-
-                estationdata[from].config.read_interval = 60000;
-
-                memcpy(&mensagem_out[1], &estationdata[from], sizeof(Estation));
-
-                if (manager.sendtoWait(mensagem_out, sizeof(Estation) + 1, from))
-                {
-                  Serial.println("Connection request responded!");
-                  // radio_busy = false;
-                  total_stations++;
-
-                  Serial.printf("Sended connection confirmation to %s with gateway Information...\r\n the read interval for this station is: %d \r\n",
-                                estationdata[from].config.name, estationdata[from].config.read_interval);
-                  radio_busy = false;
-                }
-                else
-                {
-                  Serial.println("message not delivered");
-                  // manager.sendtoWait(mensagem_out, sizeof(Estation) + 1, from);
-                  radio_busy = false;
-                }
+                Serial.printf(" -SD Memory %d GB memory and %d GB free card space\r\n",
+                              estationdata[from].config.CardSize, estationdata[from].config.CardFreeSpace);
+                estationconfigjson["SDcardSize"] = estationdata[from].config.CardSize;
               }
-              else if (mensagem_in[CONNECTION_INDEX] == 0x16)
+
+              Serial.printf(" -The station is LAT: %f LON: %f, at a hight of %f m, the last fix is %d hours ago\r\n",
+                            estationdata[from].config.gps_flat, estationdata[from].config.gps_flon, estationdata[from].config.gps_altitude, ((now() - estationdata[from].config.last_gps_fix) / 3600));
+              Serial.printf(" -The present battery voltage is %f V, the number of remote sensors is: %d \r\n",
+                            estationdata[from].config.battery_volts, estationdata[from].config.Remote_sensors);
+
+              estationconfigjson.printTo(msg);
+              sprintf(pub_topics[4], "%s/%s/config", s_devname, estationdata[from].config.name);
+
+              mqttClient.publish(pub_topics[4], 2, false, msg);
+
+              sprintf(sub_topics[4], "%s/%s/incommingConfig", s_devname, estationdata[from].config.name);
+
+              Serial.printf("Subscribe to: %s\r\n", sub_topics[4]);
+
+              mensagem_out[0] = '\x05';
+              Serial.println("Got connection request");
+
+              estationdata[from].config.read_interval = 60000;
+
+              memcpy(&mensagem_out[1], &estationdata[from], sizeof(Estation));
+
+              manager.waitPacketSent();
+
+              if (manager.sendtoWait(mensagem_out, sizeof(Estation) + 1, from))
               {
-                if (from != 1)
-                  if (manager.sendtoWait((uint8_t *)"\x16", 1, from))
-                  {
-                    Serial.println("Position update request");
-                  }
-                radio_busy = false;
-              }
-              else if (mensagem_in[CONNECTION_INDEX] == 0x06)
-              {
-                DynamicJsonBuffer estationbuffer;
-                JsonObject &estationconfigjson = estationbuffer.createObject();
+                Serial.println("Connection request responded!");
+                // radio_busy = false;
+                total_stations++;
 
-                Estation renew_position;
-
-                memcpy(&renew_position.config, &mensagem_in[1], sizeof(renew_position.config));
-
-                estationconfigjson["name"] = renew_position.config.name;
-                estationconfigjson["time_of_registry"] = millis();
-                estationconfigjson["battery_level"] = renew_position.config.battery_volts;
-                estationconfigjson["Latitude"] = renew_position.config.gps_flat;
-                estationconfigjson["Longitude"] = renew_position.config.gps_flon;
-                estationconfigjson["GPSfix"] = renew_position.config.last_gps_fix;
-                estationconfigjson["Lora_pwr"] = renew_position.config.radio_pwr;
-
-                // estationconfigjson.prettyPrintTo(Serial);
-
-                Serial.printf(" - The station: %s is LAT: %f LON: %f, at a hight of %f m, the last fix is %d hours ago\r\n",
-                              renew_position.config.name, renew_position.config.gps_flat, renew_position.config.gps_flon, renew_position.config.gps_altitude, ((now() - renew_position.config.last_gps_fix) / 3600));
-                radio_busy = false;
+                Serial.printf("Sended connection confirmation to %s with gateway Information...\r\n the read interval for this station is: %d \r\n",
+                              estationdata[from].config.name, estationdata[from].config.read_interval);
               }
               else
               {
-                Serial.println("Got Readed Data");
-                // manager.sendtoWait((uint8_t *)"\x83", 1, from);
+                Serial.println("message not delivered");
+                // manager.sendtoWait(mensagem_out, sizeof(Estation) + 1, from);
+              }
+            }
+            else if (mensagem_in[CONNECTION_INDEX] == 0x16)
+            {
+              if (from != 1)
+                if (manager.sendtoWait((uint8_t *)"\x16", 1, from))
+                {
+                  Serial.println("Position update request");
+                }
+            }
+            else if (mensagem_in[CONNECTION_INDEX] == 0x06)
+            {
+              DynamicJsonBuffer estationbuffer;
+              JsonObject &estationconfigjson = estationbuffer.createObject();
+
+              Estation renew_position;
+
+              memcpy(&renew_position.config, &mensagem_in[1], sizeof(renew_position.config));
+
+              estationconfigjson["name"] = renew_position.config.name;
+              estationconfigjson["time_of_registry"] = millis();
+              estationconfigjson["battery_level"] = renew_position.config.battery_volts;
+              estationconfigjson["Latitude"] = renew_position.config.gps_flat;
+              estationconfigjson["Longitude"] = renew_position.config.gps_flon;
+              estationconfigjson["GPSfix"] = renew_position.config.last_gps_fix;
+              estationconfigjson["Lora_pwr"] = renew_position.config.radio_pwr;
+
+              // estationconfigjson.prettyPrintTo(Serial);
+
+              Serial.printf(" - The station: %s is LAT: %f LON: %f, at a hight of %f m, the last fix is %d hours ago\r\n",
+                            renew_position.config.name, renew_position.config.gps_flat, renew_position.config.gps_flon, renew_position.config.gps_altitude, ((now() - renew_position.config.last_gps_fix) / 3600));
+            }
+            else
+            {
+              Serial.println("Got Readed Data");
+              // manager.sendtoWait((uint8_t *)"\x83", 1, from);
+
+              estationdata[from].lasttimeseen = millis();
+              estationdata[from].active = true;
+
+              switch (mensagem_in[1])
+              {
+              case TUPPB:
+              {
+                DynamicJsonBuffer jsonBuffer;
+                JsonObject &root = jsonBuffer.createObject();
+
+                JsonObject &estation = root.createNestedObject("Station");
+                Serial.printf("--------------estation with temp, hum, pres, and rain--------\r\n");
+
+                memcpy(&IncommingSmall, &mensagem_in[2], sizeof(IncommingSmall));
 
                 estationdata[from].lasttimeseen = millis();
                 estationdata[from].active = true;
 
-                switch (mensagem_in[1])
-                {
-                case TUPPB:
-                {
-                  DynamicJsonBuffer jsonBuffer;
-                  JsonObject &root = jsonBuffer.createObject();
+                estationdata[from].temperature = IncommingSmall.temperature;
+                estationdata[from].humidity = IncommingSmall.humidity;
+                estationdata[from].pressure = IncommingSmall.pressure;
+                estationdata[from].battery_volts = IncommingSmall.battery_volts;
 
-                  JsonObject &estation = root.createNestedObject("Station");
-                  Serial.printf("--------------estation with temp, hum, pres, and rain--------\r\n");
-
-                  memcpy(&IncommingSmall, &mensagem_in[2], sizeof(IncommingSmall));
-
-                  estationdata[from].lasttimeseen = millis();
-                  estationdata[from].active = true;
-
-                  estationdata[from].temperature = IncommingSmall.temperature;
-                  estationdata[from].humidity = IncommingSmall.humidity;
-                  estationdata[from].pressure = IncommingSmall.pressure;
-                  estationdata[from].battery_volts = IncommingSmall.battery_volts;
-
-                  estation["local_address"] = from;
-                  estation["signal_strengh"] = rf95.lastRssi();
-                  estation["signal_to_noise_ratio"] = rf95.lastSNR();
-                  estation["SUID"] = estationdata[from].config.name;
+                if (!isnan(estationdata[from].config.gps_flat))
                   estation["latitude"] = estationdata[from].config.gps_flat;
+                if (!isnan(estationdata[from].config.gps_flon))
                   estation["longitude"] = estationdata[from].config.gps_flon;
 
-                  estation["temperature"] = IncommingSmall.temperature;
-                  estation["humidity"] = IncommingSmall.humidity;
-                  estation["pressure"] = IncommingSmall.pressure;
-                  estation["battery_voltage"] = IncommingSmall.battery_volts;
-                  estation["rain"] = IncommingSmall.rain;
+                estation["local_address"] = from;
+                estation["signal_strengh"] = rf95.lastRssi();
+                estation["signal_to_noise_ratio"] = rf95.lastSNR();
+                estation["SUID"] = estationdata[from].config.name;
 
-                  estation["read_timestamp"] = IncommingSmall.timestamp;
-                  // estationjson["sizeofmassage"] = estationjson.size();
+                estation["temperature"] = IncommingSmall.temperature;
+                estation["humidity"] = IncommingSmall.humidity;
+                estation["pressure"] = IncommingSmall.pressure;
+                estation["battery_voltage"] = IncommingSmall.battery_volts;
+                estation["rain"] = IncommingSmall.rain;
 
-                  root.prettyPrintTo(Serial);
-                  root.printTo(msg, 512);
+                estation["read_timestamp"] = IncommingSmall.timestamp;
+                // estationjson["sizeofmassage"] = estationjson.size();
 
-                  sprintf(pub_topics[4], "%s/%s/sensor", s_devname, estationdata[from].config.name);
-                  // Serial.printf("topic: %s data: %s\r\n", pub_topics[4], msg);
+                root.prettyPrintTo(Serial);
+                root.printTo(msg, 512);
 
-                  mqttClient.publish(pub_topics[4], 2, false, msg);
+                sprintf(pub_topics[4], "%s/%s/sensor", s_devname, estationdata[from].config.name);
+                // Serial.printf("topic: %s data: %s\r\n", pub_topics[4], msg);
 
-                  if (estationdata[from].active == false || strlen(estationdata[from].config.name) == 0)
-                  {
-                    Serial.printf("Don't know the name of this device, lets check\r\n");
-                    checkDeviceConfig(from);
-                  }
-                  break;
-                }
-                case TUPVDIRPBPGPS:
+                mqttClient.publish(pub_topics[4], 2, false, msg);
+
+                if (estationdata[from].active == false || strlen(estationdata[from].config.name) == 0)
                 {
-                  DynamicJsonBuffer jsonBuffer;
-                  JsonObject &root = jsonBuffer.createObject();
+                  Serial.printf("Don't know the name of this device, lets check\r\n");
+                  manager.waitPacketSent();
+                  manager.sendtoWait((uint8_t *)"\x11", 1, from);
+                }
+                break;
+              }
+              case TUPVDIRPBPGPS:
+              {
+                DynamicJsonBuffer jsonBuffer;
+                JsonObject &root = jsonBuffer.createObject();
 
-                  JsonObject &estation = root.createNestedObject("Station");
+                JsonObject &estation = root.createNestedObject("Station");
 
-                  Serial.printf("-----------------------estation ------------------------------\r\n");
-                  memcpy(&Incomming, &mensagem_in[2], sizeof(Incomming));
-                  memcpy(&incommingSensor, &mensagem_in[2 + sizeof(Incomming)], sizeof(remoteSensors));
+                Serial.printf("-----------------------estation ------------------------------\r\n");
+                memcpy(&Incomming, &mensagem_in[2], sizeof(Incomming));
+                memcpy(&incommingSensor, &mensagem_in[2 + sizeof(Incomming)], sizeof(remoteSensors));
 
-                  // estation["address"] = from;
-                  // estation["lora_rssi"] = rf95.lastRssi();
-                  // estation["name"] = estationdata[from].config.name;
+                // estation["address"] = from;
+                // estation["lora_rssi"] = rf95.lastRssi();
+                // estation["name"] = estationdata[from].config.name;
 
-                  estationdata[from].lasttimeseen = millis();
-                  estationdata[from].active = true;
+                estationdata[from].lasttimeseen = millis();
+                estationdata[from].active = true;
 
-                  estationdata[from].temperature = Incomming.temperature;
-                  estationdata[from].humidity = Incomming.humidity;
+                estationdata[from].temperature = Incomming.temperature;
+                estationdata[from].humidity = Incomming.humidity;
 
-                  if (!isnan(Incomming.temperature))
-                    estation["temperatura"] = Incomming.temperature;
-                  if (!isnan(Incomming.humidity))
-                    estation["umidade"] = Incomming.humidity;
-                  if (!isnan(Incomming.pressure))
-                    estation["pressao"] = Incomming.pressure;
+                if (!isnan(Incomming.temperature))
+                  estation["temperatura"] = Incomming.temperature;
+                if (!isnan(Incomming.humidity))
+                  estation["umidade"] = Incomming.humidity;
+                if (!isnan(Incomming.pressure))
+                  estation["pressao"] = Incomming.pressure;
 
-                  if (!isnan(estationdata[from].config.gps_flat))
-                    estation["latitude"] = estationdata[from].config.gps_flat;
-                  if (!isnan(estationdata[from].config.gps_flon))
-                    estation["longitude"] = estationdata[from].config.gps_flon;
+                if (!isnan(estationdata[from].config.gps_flat))
+                  estation["latitude"] = estationdata[from].config.gps_flat;
+                if (!isnan(estationdata[from].config.gps_flon))
+                  estation["longitude"] = estationdata[from].config.gps_flon;
 
-                  estationdata[from].battery_volts = Incomming.battery_volts;
+                estationdata[from].battery_volts = Incomming.battery_volts;
 
-                  // estationdata[from].gps_flat = Incomming.gps_flat;
-                  // estationdata[from].gps_flon = Incomming.gps_flon;
-                  // estationdata[from].gps_altitude = Incomming.gps_altitude;
+                // estationdata[from].gps_flat = Incomming.gps_flat;
+                // estationdata[from].gps_flon = Incomming.gps_flon;
+                // estationdata[from].gps_altitude = Incomming.gps_altitude;
 
-                  estation["local_address"] = from;
-                  estation["signal_strengh"] = rf95.lastRssi();
-                  estation["signal_noise_ratio"] = rf95.lastSNR();
-                  estation["SUID"] = estationdata[from].config.name;
-                  // estation["latitude"] = estationdata[from].config.gps_flat;
-                  // estation["longitude"] = estationdata[from].config.gps_flon;
-                  // estation["altitude"] = renew_position.gps_altitude;
-                  // estation["temperatura"] = Incomming.temperature;
-                  // estation["umidade"] = Incomming.humidity;
-                  // estation["pressao"] = Incomming.pressure;
-                  estation["tensao_bateria"] = Incomming.battery_volts;
-                  estation["windspeed"] = Incomming.windspeed;
-                  estation["irradiation_in"] = Incomming.irradiation_in;
-                  estation["winddir"] = Incomming.winddir;
-                  estation["rain"] = Incomming.rain;
-                  estation["timestamp"] = Incomming.timestamp;
+                estation["local_address"] = from;
+                estation["signal_strengh"] = rf95.lastRssi();
+                estation["signal_noise_ratio"] = rf95.lastSNR();
+                estation["SUID"] = estationdata[from].config.name;
+                // estation["latitude"] = estationdata[from].config.gps_flat;
+                // estation["longitude"] = estationdata[from].config.gps_flon;
+                // estation["altitude"] = renew_position.gps_altitude;
+                // estation["temperatura"] = Incomming.temperature;
+                // estation["umidade"] = Incomming.humidity;
+                // estation["pressao"] = Incomming.pressure;
+                estation["tensao_bateria"] = Incomming.battery_volts;
+                estation["windspeed"] = Incomming.windspeed;
+                estation["irradiation_in"] = Incomming.irradiation_in;
+                estation["winddir"] = Incomming.winddir;
+                estation["rain"] = Incomming.rain;
+                estation["timestamp"] = Incomming.timestamp;
 
-                  root.prettyPrintTo(Serial);
-                  root.printTo(msg, 512);
+                root.prettyPrintTo(Serial);
+                root.printTo(msg, 512);
 
-                  DynamicJsonBuffer estationbuffer;
-                  JsonObject &stationstorage = estationbuffer.createObject();
+                DynamicJsonBuffer estationbuffer;
+                JsonObject &stationstorage = estationbuffer.createObject();
 
-                  if (strlen(estationdata[from].config.name) > 0)
+                if (strlen(estationdata[from].config.name) > 0)
+                {
+
+                  char filename[32];
+
+                  sprintf(filename, "/readed_data/SD-%.2d%.2d%.2d-%s.json",
+                          day(now()), month(now()), (year(now()) - 2000), estationdata[from].config.name);
+
+                  String FileName = String(filename);
+                  Serial.printf("filename to save - '%s'\r\n", FileName.c_str());
+
+                  File estationFile = SD.open(FileName.c_str(), FILE_APPEND);
+
+                  if (estationFile)
                   {
 
-                    char filename[32];
-
-                    sprintf(filename, "/readed_data/SD-%.2d%.2d%.2d-%s.json",
-                            day(now()), month(now()), (year(now()) - 2000), estationdata[from].config.name);
-
-                    String FileName = String(filename);
-                    Serial.printf("filename to save - '%s'\r\n", FileName.c_str());
-
-                    File estationFile = SD.open(FileName.c_str(), FILE_APPEND);
-
-                    if (estationFile)
+                    if (estationFile.size() <= 0)
                     {
-
-                      if (estationFile.size() <= 0)
-                      {
-                        estationFile.print("[");
-                      }
-                      else
-                      {
-                        estationFile.print(",");
-                      }
-
-                      estation.printTo(estationFile);
-                      estationFile.close();
+                      estationFile.print("[");
                     }
                     else
                     {
-                      Serial.printf("ERROR ON FILE-  '%s', creating file!\r\n", FileName.c_str());
-                      File estationFile = SPIFFS.open(FileName.c_str(), FILE_WRITE);
-                      estationFile.close();
+                      estationFile.print(",");
                     }
-                  }
 
-                  sprintf(pub_topics[4], "%s/%s/sensor", s_devname, estationdata[from].config.name);
-
-                  mqttClient.publish(pub_topics[4], 2, false, msg);
-                  // Serial.printf("topic: %s data: %s\r\n", pub_topics[4], msg);
-
-                  if (estationdata[from].active == false || strlen(estationdata[from].config.name) == 0)
-                  {
-                    Serial.printf("Don't know the name of this device, lets check\r\n");
-                    checkDeviceConfig(from);
-                  }
-
-                  break;
-                }
-                case TUPVDIRPBPGPS + 1:
-                {
-                  DynamicJsonBuffer jsonBuffer;
-                  JsonObject &root = jsonBuffer.createObject();
-
-                  JsonObject &estation = root.createNestedObject("estation");
-
-                  JsonObject &remotesensors = root.createNestedObject("remoteSensor");
-
-                  Serial.printf("-----------------------estation +1 remote sensor------------------------------\r\n");
-                  memcpy(&Incomming, &mensagem_in[2], sizeof(Incomming));
-                  memcpy(&incommingSensor, &mensagem_in[2 + sizeof(Incomming)], sizeof(remoteSensors));
-
-                  remotesensors["address"] = incommingSensor.node;
-                  remotesensors["motherStation"] = from;
-                  remotesensors["soil_m10"] = incommingSensor.soil_m10 - 30.74;
-                  remotesensors["soil_m20"] = incommingSensor.soil_m20 - 36.75;
-                  remotesensors["soil_m30"] = incommingSensor.soil_m30 - 32.15;
-                  remotesensors["soil_m40"] = incommingSensor.soil_m40 - 65.82;
-                  remotesensors["soil_m50"] = incommingSensor.soil_m50 - 76.66;
-                  remotesensors["soil_moisture"] = incommingSensor.soil_moisture;
-                  remotesensors["bat_level"] = incommingSensor.batlevel;
-                  remotesensors["timestamp"] = incommingSensor.lasttimeseen;
-
-                  estation["address"] = from;
-                  estation["lora_rssi"] = rf95.lastRssi();
-                  estation["name"] = estationdata[from].config.name;
-                  // parseUnion(incomingdata, mensagem_in[INCOMING_SIZE], from, mensagem_in);
-
-                  estationdata[from].lasttimeseen = millis();
-                  estationdata[from].active = true;
-
-                  estationdata[from].temperature = Incomming.temperature;
-                  estationdata[from].humidity = Incomming.humidity;
-                  estationdata[from].pressure = Incomming.pressure;
-                  estationdata[from].battery_volts = Incomming.battery_volts;
-                  //estationdata[from].gps_flat = Incomming.gps_flat;
-                  //estationdata[from].gps_flon = Incomming.gps_flon;
-                  //estationdata[from].gps_altitude = Incomming.gps_altitude;
-
-                  estation["temperatura"] = Incomming.temperature;
-                  estation["umidade"] = Incomming.humidity;
-                  estation["pressao"] = Incomming.pressure;
-                  estation["tensao_bateria"] = Incomming.battery_volts;
-                  estation["windspeed"] = Incomming.windspeed;
-                  estation["irradiation_in"] = Incomming.irradiation_in;
-                  estation["winddir"] = Incomming.winddir;
-                  estation["rain"] = Incomming.rain;
-                  estation["timestamp"] = Incomming.timestamp;
-
-                  root.prettyPrintTo(Serial);
-                  root.printTo(msg, 512);
-                  sprintf(pub_topics[4], "%s/%s/sensor", s_devname, estationdata[from].config.name);
-
-                  if (estationdata[from].active == false || strlen(estationdata[from].config.name) == 0)
-                  {
-                    Serial.printf("Don't know the name of this device, lets check\r\n");
-                    checkDeviceConfig(from);
-                    break;
-                  }
-
-                  if (mqtt_client.publish(pub_topics[4], msg))
-                  {
-                    Serial.println("published ok!");
+                    estation.printTo(estationFile);
+                    estationFile.close();
                   }
                   else
                   {
-                    Serial.println("message not delivered!");
-
-                    // reconnect();
-                    mqtt_client.publish(pub_topics[4], msg);
+                    Serial.printf("ERROR ON FILE-  '%s', creating file!\r\n", FileName.c_str());
+                    File estationFile = SPIFFS.open(FileName.c_str(), FILE_WRITE);
+                    estationFile.close();
                   }
+                }
 
+                sprintf(pub_topics[4], "%s/%s/sensor", s_devname, estationdata[from].config.name);
+
+                mqttClient.publish(pub_topics[4], 2, false, msg);
+                // Serial.printf("topic: %s data: %s\r\n", pub_topics[4], msg);
+
+                if (estationdata[from].active == false || strlen(estationdata[from].config.name) == 0)
+                {
+                  Serial.printf("Don't know the name of this device, lets check\r\n");
+                  manager.waitPacketSent();
+                  manager.sendtoWait((uint8_t *)"\x11", 1, from);
+                }
+
+                break;
+              }
+              case TUPVDIRPBPGPS + 1:
+              {
+                DynamicJsonBuffer jsonBuffer;
+                JsonObject &root = jsonBuffer.createObject();
+
+                JsonObject &estation = root.createNestedObject("estation");
+
+                JsonObject &remotesensors = root.createNestedObject("remoteSensor");
+
+                Serial.printf("-----------------------estation +1 remote sensor------------------------------\r\n");
+                memcpy(&Incomming, &mensagem_in[2], sizeof(Incomming));
+                memcpy(&incommingSensor, &mensagem_in[2 + sizeof(Incomming)], sizeof(remoteSensors));
+
+                remotesensors["address"] = incommingSensor.node;
+                remotesensors["motherStation"] = from;
+                remotesensors["soil_m10"] = incommingSensor.soil_m10 - 30.74;
+                remotesensors["soil_m20"] = incommingSensor.soil_m20 - 36.75;
+                remotesensors["soil_m30"] = incommingSensor.soil_m30 - 32.15;
+                remotesensors["soil_m40"] = incommingSensor.soil_m40 - 65.82;
+                remotesensors["soil_m50"] = incommingSensor.soil_m50 - 76.66;
+                remotesensors["soil_moisture"] = incommingSensor.soil_moisture;
+                remotesensors["bat_level"] = incommingSensor.batlevel;
+                remotesensors["timestamp"] = incommingSensor.lasttimeseen;
+
+                estation["address"] = from;
+                estation["lora_rssi"] = rf95.lastRssi();
+                estation["name"] = estationdata[from].config.name;
+                // parseUnion(incomingdata, mensagem_in[INCOMING_SIZE], from, mensagem_in);
+
+                estationdata[from].lasttimeseen = millis();
+                estationdata[from].active = true;
+
+                estationdata[from].temperature = Incomming.temperature;
+                estationdata[from].humidity = Incomming.humidity;
+                estationdata[from].pressure = Incomming.pressure;
+                estationdata[from].battery_volts = Incomming.battery_volts;
+                //estationdata[from].gps_flat = Incomming.gps_flat;
+                //estationdata[from].gps_flon = Incomming.gps_flon;
+                //estationdata[from].gps_altitude = Incomming.gps_altitude;
+
+                estation["temperatura"] = Incomming.temperature;
+                estation["umidade"] = Incomming.humidity;
+                estation["pressao"] = Incomming.pressure;
+                estation["tensao_bateria"] = Incomming.battery_volts;
+                estation["windspeed"] = Incomming.windspeed;
+                estation["irradiation_in"] = Incomming.irradiation_in;
+                estation["winddir"] = Incomming.winddir;
+                estation["rain"] = Incomming.rain;
+                estation["timestamp"] = Incomming.timestamp;
+
+                root.prettyPrintTo(Serial);
+                root.printTo(msg, 512);
+                sprintf(pub_topics[4], "%s/%s/sensor", s_devname, estationdata[from].config.name);
+
+                if (estationdata[from].active == false || strlen(estationdata[from].config.name) == 0)
+                {
+                  Serial.printf("Don't know the name of this device, lets check\r\n");
+                  manager.waitPacketSent();
+                  manager.sendtoWait((uint8_t *)"\x11", 1, from);
                   break;
                 }
+
+                if (mqtt_client.publish(pub_topics[4], msg))
+                {
+                  Serial.println("published ok!");
                 }
+                else
+                {
+                  Serial.println("message not delivered!");
+
+                  // reconnect();
+                  mqtt_client.publish(pub_topics[4], msg);
+                }
+
+                break;
+              }
               }
             }
           }
-          else
-          {
-          }
         }
-        radio_busy = false;
+        else
+        {
+        }
       }
     }
     vTaskDelay(10);
   }
 }
+
 void send_or_store_mqtt_message(char *payload, char *topic, char *station)
 {
 
@@ -2296,58 +2285,24 @@ void send_or_store_mqtt_message(char *payload, char *topic, char *station)
 }
 bool checkNewDevices()
 {
-  if (!radio_busy)
+
+  if (LoraConnected && !upload_file)
   {
-    if (LoraConnected)
+    // Serial.println("sending Solicitation ------------------------------");
+    manager.waitPacketSent();
+    if (manager.sendtoWait((uint8_t *)"\x03", 1, 255))
     {
-      // Serial.println("checkNewDevices");
-      if (has_stations_to_check)
-      {
-        for (uint8_t i = 0; i < max_stations; i++)
-        {
+      Serial.println("------------------------Solicitation sent ---------------------");
 
-          if (stations_to_check[i].valid)
-          {
-            timed_send = millis();
-            radio_busy = true;
-
-            Serial.print("Checking name station: ");
-            Serial.println(i);
-            if (manager.sendtoWait((uint8_t *)"\x11", 1, i))
-            {
-              Serial.println("------------------------name test send ---------------------");
-              stations_to_check[i].valid = false;
-              radio_busy = false;
-            }
-          }
-        }
-        has_stations_to_check = false;
-        // Serial.println("------------------------ Return from name test send ---------------------");
-        return true;
-      }
-      else
-      {
-        timed_send = millis();
-        radio_busy = true;
-        // lora_config_modem(3);
-        if (manager.sendtoWait((uint8_t *)"\x03", 1, 255))
-        {
-          Serial.println("------------------------Solicitation sent ---------------------");
-        }
-        else
-        {
-          Serial.println("Solicitation not delivered...");
-          setupLora();
-        }
-
-        radio_busy = false;
-        // lora_config_modem(5);
-      }
+      timed_send = millis();
     }
-    // Serial.println("------------------------ Return from checkNewDevices ---------------------");
-    return true;
+    else
+    {
+      // Serial.println("Solicitation not delivered...");
+
+      setupLora();
+    }
   }
-  return false;
 }
 bool checkDeviceConfig(uint8_t address)
 {
@@ -2411,23 +2366,14 @@ void setupLora()
     lora_config_modem(2);
     rf95.setFrequency(434);
     rf95.setPreambleLength(8);
-    manager.setTimeout(100);
+    manager.setTimeout(250);
     // manager.setRetries(6);
     // return;
     // rf95.setCADTimeout(2000);
     Serial.println("LoRa up and running");
-    // vTaskDelay(100);
-    // if (manager.sendtoWait((uint8_t *)"\x66", 1, 1))
-    // {
-    //   Serial.println("------------------------reset send ---------------------");
-    //   // stations_to_check[i].valid = false;
-    // }
-    // else
-    // {
-    //   Serial.println("------------------------reset not delivered ---------------------");
-    // }
+    manager.sendtoWait((uint8_t *)"\x03", 1, 255);
+
     LoraConnected = true;
-    // return;
   }
 }
 void automaticStationDataRate()
@@ -2722,7 +2668,7 @@ void setupWiFi()
 
     WiFi.beginSmartConfig();
     // xTimerStop(wifiReconnectTimer, 0); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
-    
+
     if (!SD.exists(wifi_config_file))
     {
       Serial.println("setupWiFi: no wificonfig2.json doesn't exist");
