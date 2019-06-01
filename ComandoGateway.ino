@@ -1836,8 +1836,7 @@ bool send_file_over_LORA(const char *path, uint8_t destination)
       DynamicJsonBuffer jsonBuffer;
       JsonObject &config = jsonBuffer.createObject();
       // config["FileUploaded"] = String(filename);
-      
-
+    
       config["Total_Time_To_Transfer"] = (millis() - file_transfer_init_time) / 1000;
       config["Status"] = 0;
       config["KBPS"] = 0;
