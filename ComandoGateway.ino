@@ -1830,7 +1830,6 @@ bool send_file_over_LORA(const char *path, uint8_t destination)
       }
 
       Serial.println("File send done");
-
       estationFile.close();
 
       DynamicJsonBuffer jsonBuffer;
