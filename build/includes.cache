@@ -1,13 +1,13 @@
 [
   {
-    "Sourcefile": "",
+    "Sourcefile": null,
     "Include": "",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\cores\\esp32"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\cores\\esp32"
   },
   {
-    "Sourcefile": "",
+    "Sourcefile": null,
     "Include": "",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\variants\\esp32"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\variants\\esp32"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
@@ -31,38 +31,43 @@
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "WiFi.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "Update.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\Update\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "SD.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SD\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "FS.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\FS\\src"
+    "Include": "SdFat.h",
+    "Includepath": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "SPI.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SPI\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPI\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
+    "Include": "SD.h",
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SD\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
+    "Include": "FS.h",
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\FS\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
+    "Include": "WiFi.h",
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
+    "Include": "Update.h",
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\Update\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "HTTPClient.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\HTTPClient\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\HTTPClient\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "WiFiClientSecure.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFiClientSecure\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFiClientSecure\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
@@ -86,28 +91,18 @@
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "UniversalTelegramBot.h",
-    "Includepath": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Universal-Arduino-Telegram-Bot-master\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "ArduinoJson.h",
-    "Includepath": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ArduinoJson\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "ESPmDNS.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\ESPmDNS\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\ESPmDNS\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "ArduinoOTA.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\ArduinoOTA\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\ArduinoOTA\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "SPIFFS.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SPIFFS\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPIFFS\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
@@ -131,6 +126,11 @@
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
+    "Include": "ArduinoJson.h",
+    "Includepath": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ArduinoJson\\src"
+  },
+  {
+    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "RH_RF95.h",
     "Includepath": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead"
   },
@@ -141,13 +141,8 @@
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
-    "Include": "SD_MMC.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SD_MMC\\src"
-  },
-  {
-    "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "EEPROM.h",
-    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\EEPROM\\src"
+    "Includepath": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\EEPROM\\src"
   },
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
@@ -157,761 +152,776 @@
   {
     "Sourcefile": "c:\\Users\\lucas\\Documents\\Arduino\\Station\\ComandoGateway\\build\\sketch\\ComandoGateway.ino.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Abellion\\Abellion.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Timezone-master\\src\\Timezone.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Time\\DateStrings.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Time\\Time.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\TinyGPSPlus-1.0.2\\src\\TinyGPS++.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\ETH.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatDbg.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFi.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatFile.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiAP.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatFilePrint.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiClient.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatFileWrite.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiGeneric.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatFormatter.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiMulti.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatPartition.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiSTA.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\ExFatVolume.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiScan.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\ExFatLib\\upcase.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiServer.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatDbg.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFi\\src\\WiFiUdp.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatFile.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\Update\\src\\Updater.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatFileLFN.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SD\\src\\SD.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatFilePrint.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SD\\src\\sd_diskio.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatFileSFN.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SD\\src\\sd_diskio_crc.c",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatFormatter.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\FS\\src\\FS.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatPartition.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\FS\\src\\vfs_api.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FatLib\\FatVolume.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SPI\\src\\SPI.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FreeStack.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\HTTPClient\\src\\HTTPClient.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FsLib\\FsFile.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFiClientSecure\\src\\WiFiClientSecure.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FsLib\\FsNew.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\WiFiClientSecure\\src\\ssl_client.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\FsLib\\FsVolume.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\MinimumSerial.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SdCard\\SdCardInfo.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SdCard\\SdSpiCard.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SdCard\\SdioTeensy.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiArtemis.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiChipSelect.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiDue.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiESP.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiParticle.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiSTM32.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\SpiDriver\\SdSpiTeensy3.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\common\\FmtNumber.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\common\\FsDateTime.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\common\\FsStructs.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\common\\PrintBasic.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\common\\SysCallBareUno.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\iostream\\StdioStream.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\iostream\\StreamBaseClass.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\iostream\\istream.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\SdFat-beta-master\\src\\iostream\\ostream.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPI\\src\\SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SD\\src\\SD.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SD\\src\\sd_diskio.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SD\\src\\sd_diskio_crc.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\FS\\src\\FS.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\FS\\src\\vfs_api.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\ETH.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFi.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiAP.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiClient.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiGeneric.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiMulti.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiSTA.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiScan.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiServer.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFi\\src\\WiFiUdp.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\Update\\src\\Updater.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\HTTPClient\\src\\HTTPClient.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFiClientSecure\\src\\WiFiClientSecure.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\WiFiClientSecure\\src\\ssl_client.cpp",
+    "Include": "",
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\Esp32_i2s.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\HsbColor.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\HslColor.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\HtmlColor.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\HtmlColorNameStrings.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\HtmlColorNames.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\HtmlColorShortNames.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\NeoEsp8266UartMethod.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\NeoGamma.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\NeoPixelAnimator.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\NeoPixelAvr.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\NeoPixelEsp.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\RgbColor.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NeoPixelBus-master\\src\\internal\\RgbwColor.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\AWS_IOT.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_certficates.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_json_utils.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client_common_internal.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client_connect.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client_publish.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client_subscribe.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client_unsubscribe.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_mqtt_client_yield.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_shadow.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_shadow_actions.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_shadow_json.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\aws_iot_shadow_records.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\jsonParser.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\network_mbedtls_wrapper.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\threads_freertos.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AWS_IOT\\src\\timer.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESP32_ping\\src\\Ping.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\UDHttp\\src\\UDHttp.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Universal-Arduino-Telegram-Bot-master\\src\\UniversalTelegramBot.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\ESPmDNS\\src\\ESPmDNS.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\ESPmDNS\\src\\ESPmDNS.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\ArduinoOTA\\src\\ArduinoOTA.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\ArduinoOTA\\src\\ArduinoOTA.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\SPIFFS\\src\\SPIFFS.cpp",
     "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SPIFFS\\src\\SPIFFS.cpp",
-    "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\AsyncEventSource.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\AsyncWebSocket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\SPIFFSEditor.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\WebAuthentication.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\WebHandlers.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\WebRequest.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\WebResponses.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\ESPAsyncWebServer-master\\src\\WebServer.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\AsyncTCP-master\\src\\AsyncTCP.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\WebSockets\\src\\WebSockets.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\WebSockets\\src\\WebSocketsClient.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\WebSockets\\src\\WebSocketsServer.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\WebSockets\\src\\libb64\\cdecode.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\WebSockets\\src\\libb64\\cencode.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\WebSockets\\src\\libsha1\\libsha1.c",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\NTPClient\\NTPClient.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHCRC.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHDatagram.cpp",
     "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHEncryptedDriver.cpp",
-    "Include": "BlockCipher.h",
-    "Includepath": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src"
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHEncryptedDriver.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHGenericDriver.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHGenericSPI.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHHardwareSPI.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHMesh.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHNRFSPIDriver.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHReliableDatagram.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHRouter.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHSPIDriver.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RHSoftwareSPI.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_CC110.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_E32.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_MRF89.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_NRF24.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_NRF51.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_NRF905.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_RF22.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_RF24.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_RF69.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_RF95.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_Serial.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\RadioHead\\RH_TCP.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\PubSubClient\\src\\PubSubClient.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\SD_MMC\\src\\SD_MMC.cpp",
+    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\libraries\\EEPROM\\src\\EEPROM.cpp",
     "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.2\\libraries\\EEPROM\\src\\EEPROM.cpp",
-    "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\ConnAckPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\PingRespPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\PubAckPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\PubCompPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\PubRecPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\PubRelPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\PublishPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\SubAckPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient\\Packets\\UnsubAckPacket.cpp",
     "Include": "",
-    "Includepath": ""
+    "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\async-mqtt-client-master\\src\\AsyncMqttClient.cpp",
     "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\AES128.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\AES192.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\AES256.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\AESCommon.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\AESEsp32.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\AuthenticatedCipher.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\BLAKE2b.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\BLAKE2s.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\BigNumberUtil.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\BlockCipher.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\CTR.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\ChaCha.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\ChaChaPoly.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\Cipher.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\Crypto.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\Curve25519.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\EAX.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\Ed25519.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\GCM.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\GF128.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\GHASH.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\Hash.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\KeccakCore.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\NoiseSource.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\OMAC.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\P521.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\Poly1305.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\RNG.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\SHA256.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\SHA3.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\SHA512.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\SHAKE.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\XOF.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\lucas\\Documents\\Arduino\\libraries\\Crypto\\src\\XTS.cpp",
-    "Include": "",
-    "Includepath": ""
+    "Includepath": null
   }
 ]
